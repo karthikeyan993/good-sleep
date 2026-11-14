@@ -1,0 +1,697 @@
+<title>Good Sleep Hardware</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a parts catalogue. Watch-outs and wiring first, then one card per part with its specs and a cheaper / this / next-level table. Same type and colours as the build plan page. */
+:root {
+  --bg: #f5f5f0;
+  --surface: #ffffff;
+  --band: #ecede6;
+  --band-2: #dfe1d8;
+  --ink: #1a201c;
+  --muted: #5e675f;
+  --rule: #d3d6cd;
+  --sys: #8a5cc2;
+  --sys-ink: #6f42a8;
+  --sys-soft: #ece3f7;
+  --hw: #8b938b;
+  --open: #c4471d;
+  --open-soft: #fbe6dc;
+  --ok: #2f7d4f;
+  --f-display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131714; --surface: #1b201c; --band: #222823; --band-2: #2c332d;
+    --ink: #e5e9e2; --muted: #9aa39a; --rule: #353d36;
+    --sys: #b28fe3; --sys-ink: #c4a6ec; --sys-soft: #2d2440;
+    --hw: #7c857c; --open: #ff8b5e; --open-soft: #3b2219; --ok: #6cc68e;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #131714; --surface: #1b201c; --band: #222823; --band-2: #2c332d;
+  --ink: #e5e9e2; --muted: #9aa39a; --rule: #353d36;
+  --sys: #b28fe3; --sys-ink: #c4a6ec; --sys-soft: #2d2440;
+  --hw: #7c857c; --open: #ff8b5e; --open-soft: #3b2219; --ok: #6cc68e;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
+a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+a:focus-visible { outline: 2px solid var(--sys); outline-offset: 2px; border-radius: 3px; }
+
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 56px;
+  display: grid; gap: 52px;
+}
+.eyebrow { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 800; letter-spacing: -.015em; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(40px, 7vw, 64px); line-height: .95; }
+h2 { font-size: clamp(24px, 3.4vw, 30px); line-height: 1.1; }
+h3 { font-size: 21px; line-height: 1.15; }
+p { margin: 0; }
+.lede { font-size: 16.5px; color: var(--muted); max-width: 66ch; }
+.sec { display: grid; gap: 20px; min-width: 0; }
+.sec-hd { display: grid; gap: 8px; }
+
+/* header */
+.top { display: grid; gap: 18px; }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; margin: 6px 0 0; }
+.facts div { background: var(--surface); padding: 12px 14px; display: grid; gap: 2px; min-width: 0; }
+.facts dt { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 0; font-weight: 700; font-size: 15px; line-height: 1.3; font-variant-numeric: tabular-nums; }
+.facts dd small { display: block; font-weight: 400; color: var(--muted); font-size: 12.5px; }
+.nav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; }
+.nav a { color: var(--muted); }
+
+/* watch-outs */
+.watch { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; }
+.watch li { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 6px 18px; padding: 14px 18px; border-bottom: 1px solid var(--rule); }
+.watch li:last-child { border-bottom: 0; }
+.watch .tag { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--open); padding-top: 3px; }
+.watch .tag.calm { color: var(--muted); }
+.watch b { display: block; font-size: 15px; }
+.watch span { font-size: 14px; color: var(--muted); }
+
+/* figures */
+figure { margin: 0; display: grid; gap: 12px; min-width: 0; }
+.scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px; }
+.scroll svg { display: block; width: 100%; height: auto; }
+.wiring svg { min-width: 760px; max-width: 980px; margin: 0 auto; }
+.budget svg { min-width: 600px; max-width: 800px; }
+figcaption { font-size: 13.5px; color: var(--muted); max-width: 74ch; }
+.hint { font-size: 12px; color: var(--muted); display: none; }
+
+.dg { color: var(--ink); font-family: var(--f-body); }
+.dg text { fill: var(--ink); font-size: 12px; }
+.dg .b { font-weight: 700; font-size: 13px; }
+.dg .m { fill: var(--muted); font-size: 11.5px; }
+.dg .mo { font-family: var(--f-mono); font-size: 11px; fill: var(--muted); }
+.dg .warn { fill: var(--open); font-size: 11.5px; font-weight: 700; }
+.dg .al { font-size: 11.5px; fill: var(--ink); }
+.dg .box { fill: var(--surface); stroke-width: 2; }
+.dg .sub { fill: var(--band); stroke: var(--rule); stroke-width: 1; }
+.dg .s-sys { stroke: var(--sys); }
+.dg .s-hw { stroke: var(--hw); }
+.dg .s-open { stroke: var(--open); }
+.dg .dash { stroke-dasharray: 5 4; }
+.dg .ln { stroke: var(--ink); stroke-width: 1.5; fill: none; }
+.dg .bus { stroke: var(--ink); stroke-width: 3; fill: none; }
+.dg .ln.d, .dg .bus.d { stroke-dasharray: 5 4; }
+.dg .dot { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.dg .grid { stroke: var(--rule); stroke-width: 1; fill: none; }
+.dg .bar { fill: var(--sys); }
+.dg .bar-n { fill: var(--hw); }
+.dg .bar-warn { fill: var(--open-soft); stroke: var(--open); stroke-width: 1.5; stroke-dasharray: 4 3; }
+
+.sum { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.sum div { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px 16px; display: grid; gap: 4px; }
+.sum div.bad { border-color: var(--open); }
+.sum b { font-family: var(--f-display); font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; }
+.sum span { font-size: 13.5px; color: var(--muted); }
+.sum .k { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+
+/* part cards */
+.parts { display: grid; gap: 22px; }
+.part { background: var(--surface); border: 1px solid var(--rule); border-radius: 14px; padding: 20px; display: grid; gap: 18px; min-width: 0; }
+.part-hd { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; }
+.part-hd .ttl { display: grid; gap: 4px; }
+.role { font-family: var(--f-mono); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--sys-ink); }
+.chip { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase; border-radius: 99px; padding: 3px 10px; border: 1.5px solid currentColor; white-space: nowrap; }
+.chip.keep { color: var(--ok); }
+.chip.test { color: var(--open); }
+.chip.decide { color: var(--open); }
+.chip.later { color: var(--muted); }
+.chip.have { color: var(--ok); }
+.part-body { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 22px; }
+.col { display: grid; gap: 12px; align-content: start; min-width: 0; }
+.job { font-size: 15px; max-width: 60ch; }
+dl.specs { margin: 0; display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 6px 14px; font-size: 13.5px; }
+dl.specs dt { font-family: var(--f-mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); padding-top: 2px; }
+dl.specs dd { margin: 0; font-variant-numeric: tabular-nums; }
+.k2 { font-family: var(--f-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+ul.buy, ul.warn { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; font-size: 13.5px; }
+ul.buy li { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dashed var(--rule); padding-bottom: 5px; }
+ul.buy li span:last-child { font-variant-numeric: tabular-nums; white-space: nowrap; font-weight: 700; }
+ul.buy li.out span:last-child { color: var(--muted); font-weight: 400; }
+ul.warn li { border-left: 3px solid var(--open); padding-left: 10px; }
+ul.warn li.calm { border-left-color: var(--rule); color: var(--muted); }
+
+.tbl { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+table.cmp { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 620px; }
+table.cmp th { text-align: left; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 8px 10px; border-bottom: 1.5px solid var(--rule); }
+table.cmp td { padding: 9px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+table.cmp tr:last-child td { border-bottom: 0; }
+table.cmp td:first-child { font-weight: 700; width: 24%; }
+table.cmp td:nth-child(3) { white-space: nowrap; font-variant-numeric: tabular-nums; }
+table.cmp td:last-child { width: 18%; }
+table.cmp tr.pick td { background: var(--sys-soft); }
+table.cmp tr.pick td:first-child { box-shadow: inset 3px 0 0 var(--sys); }
+.tier { display: block; font-family: var(--f-mono); font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+
+/* tools */
+table.tools { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 760px; background: var(--surface); }
+table.tools th { text-align: left; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 10px 12px; border-bottom: 1.5px solid var(--rule); }
+table.tools td { padding: 10px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+table.tools td:first-child { font-weight: 700; }
+table.tools td:nth-child(4) { white-space: nowrap; font-variant-numeric: tabular-nums; }
+.tools-wrap { border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+
+/* decisions */
+ol.dec { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; counter-reset: d; }
+ol.dec li { counter-increment: d; display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 4px 12px; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px 16px; }
+ol.dec li::before { content: counter(d); font-family: var(--f-display); font-weight: 800; font-size: 22px; color: var(--open); line-height: 1; }
+ol.dec b { font-size: 15.5px; }
+ol.dec p { font-size: 14px; color: var(--muted); grid-column: 2; }
+
+footer { display: grid; gap: 8px; font-size: 13px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 18px; }
+footer .links { display: flex; flex-wrap: wrap; gap: 6px 16px; }
+
+@media (max-width: 860px) {
+  .part-body, .sum { grid-template-columns: minmax(0, 1fr); }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .watch li { grid-template-columns: minmax(0, 1fr); }
+  .hint { display: block; }
+}
+@media (max-width: 420px) {
+  .wrap { gap: 42px; padding-block: 24px 40px; }
+  .part { padding: 16px; }
+  dl.specs { grid-template-columns: minmax(0, 1fr); gap: 0 0; }
+  dl.specs dd { margin-bottom: 8px; }
+}
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">good-sleep · hardware · prices checked Sat 14 Nov 2026</p>
+  <h1>Hardware</h1>
+  <p class="lede">Every part in the wristband: what it does, how much it holds or draws, where to buy it, and what the cheaper and better versions would change. Three things on the current list need fixing or testing; they're first.</p>
+  <dl class="facts">
+    <div><dt>Core parts</dt><dd>about ₹2,900<small>board, sensor, battery, flash chip</small></dd></div>
+    <div><dt>Average draw at night</dt><dd>about 1.3 mA<small>estimate, measured at firmware step 11</small></dd></div>
+    <div><dt>Nights per charge</dt><dd>about 10<small>estimate, 150 mAh battery</small></dd></div>
+    <div><dt>Pins used</dt><dd>7 of 11<small>so the Sense Plus isn't needed</small></dd></div>
+  </dl>
+  <nav class="nav" aria-label="Sections">
+    <a href="#watch">Watch-outs</a>
+    <a href="#wiring">Wiring</a>
+    <a href="#power">Power budget</a>
+    <a href="#parts">Parts</a>
+    <a href="#tools">Tools</a>
+    <a href="#decide">Your decisions</a>
+  </nav>
+</header>
+
+<section class="sec" id="watch">
+  <div class="sec-hd">
+    <h2>Fix or check these</h2>
+    <p class="lede">Found while checking datasheets against the plan.</p>
+  </div>
+  <ul class="watch">
+    <li><span class="tag">Test at step 4</span><div><b>The green LED wants 4.5–5 V, and the sensor board runs on 3.3 V.</b><span>Analog Devices recommends 4.5–5 V on the LED supply when using green. SparkFun says the sibling MAX30105 may light green from about 3.5 V. Your plan picked green for the wrist, so test it on the bench before relying on it. If it's weak: use IR at night (you barely move while asleep), and give green a proper 5 V LED supply when you make your own PCB.</span></div></li>
+    <li><span class="tag">Fix before wearing</span><div><b>The sensor board's power LED burns about 1.4 mA, all day and night.</b><span>That's more than everything else in the band combined, and it halves the battery life. SparkFun's design (which SmartElex copies) has a jumper to cut it. Cut it once the board works.</span></div></li>
+    <li><span class="tag">Check before buying</span><div><b>Some W25Q128 boards use the 1.8 V version of the chip.</b><span>W25Q128<em>JV</em> runs on 3.3 V; W25Q128<em>JW</em> is a 1.8 V part. Robocraze's 7Semi board is a JW. Only buy a JW board if it has its own regulator and level shifting. Many cheap modules also have an always-on power LED: remove it.</span></div></li>
+    <li><span class="tag calm">Already known</span><div><b>Raw nights don't fit in the board's 2 MB.</b><span>About 13–17 MB a night at the planned rates. That's what the optional 16 MB flash chip is for (storage option A in the build plan).</span></div></li>
+    <li><span class="tag calm">Corrected estimate</span><div><b>The build plan's "2–5 nights per charge" assumed recording 24 hours a day.</b><span>Recording only at night and sleeping in between, the estimate is closer to 10 nights. The real number comes from measuring at firmware step 11.</span></div></li>
+    <li><span class="tag calm">Firmware rule</span><div><b>Don't set pin P0.14 high while the battery is charging.</b><span>Seeed warns it can push P0.31 (the battery-voltage pin) past its 3.6 V limit and damage it.</span></div></li>
+  </ul>
+</section>
+
+<section class="sec" id="wiring">
+  <div class="sec-hd">
+    <h2>How it connects</h2>
+    <p class="lede">The battery and USB-C feed the XIAO, which charges the battery and makes 3.3 V for everything else. The two external boards hang off its I2C and SPI pins.</p>
+  </div>
+  <figure class="wiring">
+    <div class="scroll">
+      <svg class="dg" viewBox="0 0 900 340" role="img" aria-label="Wiring: USB-C and a 150 mAh LiPo through a slide switch feed the XIAO nRF52840 Sense, which holds the nRF52840, charger, 3.3 V regulator, IMU, 2 MB flash and microphone. The MAX30101 breakout connects over I2C on D4 and D5 with its interrupt on D2. An optional 16 MB SPI flash connects on D8, D9, D10 with chip select on D3. A later skin temperature sensor shares the I2C bus.">
+        <!-- power in -->
+        <rect class="box s-hw" x="20" y="60" width="150" height="60" rx="8"/>
+        <text class="b" x="95" y="85" text-anchor="middle">USB-C</text>
+        <text class="m" x="95" y="103" text-anchor="middle">charge · flash · serial</text>
+        <line class="ln" x1="170" y1="90" x2="228" y2="90"/>
+        <text class="al" x="199" y="82" text-anchor="middle">5 V</text>
+
+        <rect class="box s-hw" x="20" y="220" width="150" height="64" rx="8"/>
+        <text class="b" x="95" y="246" text-anchor="middle">LiPo 150 mAh</text>
+        <text class="m" x="95" y="265" text-anchor="middle">3.7 V · protected</text>
+        <line class="ln" x1="170" y1="252" x2="190" y2="252"/>
+        <circle class="dot" cx="193" cy="252" r="3"/>
+        <line class="ln" x1="195" y1="251" x2="212" y2="240"/>
+        <circle class="dot" cx="215" cy="252" r="3"/>
+        <line class="ln" x1="218" y1="252" x2="228" y2="252"/>
+        <text class="al" x="204" y="228" text-anchor="middle">switch</text>
+        <text class="mo" x="199" y="275" text-anchor="middle">BAT pads</text>
+
+        <!-- xiao -->
+        <rect class="box s-sys" x="230" y="36" width="260" height="276" rx="10"/>
+        <text class="b" x="246" y="58">XIAO nRF52840 Sense</text>
+        <text class="mo" x="474" y="58" text-anchor="end">21×17.5 mm</text>
+        <rect class="sub" x="246" y="70" width="228" height="52" rx="6"/>
+        <text class="b" x="360" y="92" text-anchor="middle">nRF52840</text>
+        <text class="m" x="360" y="110" text-anchor="middle">M4F 64 MHz · 256 KB RAM · BLE 5</text>
+        <rect class="sub" x="246" y="132" width="110" height="52" rx="6"/>
+        <text class="b" x="301" y="154" text-anchor="middle">charger</text>
+        <text class="m" x="301" y="172" text-anchor="middle">50 or 100 mA</text>
+        <rect class="sub" x="364" y="132" width="110" height="52" rx="6"/>
+        <text class="b" x="419" y="154" text-anchor="middle">regulator</text>
+        <text class="m" x="419" y="172" text-anchor="middle">3.3 V out</text>
+        <rect class="sub" x="246" y="194" width="110" height="52" rx="6"/>
+        <text class="b" x="301" y="216" text-anchor="middle">IMU</text>
+        <text class="mo" x="301" y="234" text-anchor="middle">LSM6DS3TR-C</text>
+        <rect class="sub" x="364" y="194" width="110" height="52" rx="6"/>
+        <text class="b" x="419" y="216" text-anchor="middle">flash</text>
+        <text class="m" x="419" y="234" text-anchor="middle">2 MB QSPI</text>
+        <rect class="sub dash" x="246" y="256" width="228" height="40" rx="6"/>
+        <text class="m" x="360" y="281" text-anchor="middle">microphone: keep powered off</text>
+
+        <!-- i2c to sensor -->
+        <line class="bus" x1="490" y1="100" x2="638" y2="100"/>
+        <text class="al" x="564" y="90" text-anchor="middle">SDA D4 · SCL D5</text>
+        <text class="al" x="564" y="118" text-anchor="middle">INT D2 · 3V3 · GND</text>
+        <rect class="box s-hw" x="640" y="50" width="240" height="100" rx="8"/>
+        <text class="b" x="760" y="76" text-anchor="middle">MAX30101 breakout</text>
+        <text class="m" x="760" y="95" text-anchor="middle">green · red · IR · 18-bit</text>
+        <text class="mo" x="760" y="114" text-anchor="middle">I2C 0x57 · 25.4 mm square</text>
+        <text class="warn" x="760" y="135" text-anchor="middle">cut the power-LED jumper</text>
+
+        <!-- spi to flash -->
+        <line class="bus d" x1="490" y1="224" x2="638" y2="224"/>
+        <text class="al" x="564" y="214" text-anchor="middle">SCK D8 · MISO D9</text>
+        <text class="al" x="564" y="242" text-anchor="middle">MOSI D10 · CS D3</text>
+        <rect class="box s-open dash" x="640" y="186" width="240" height="76" rx="8"/>
+        <text class="b" x="760" y="210" text-anchor="middle">16 MB SPI flash</text>
+        <text class="m" x="760" y="229" text-anchor="middle">W25Q128JV · storage option A</text>
+        <text class="mo" x="760" y="247" text-anchor="middle">3.3 V part only</text>
+
+        <!-- later temp sensor -->
+        <polyline class="ln d" points="616,100 616,306 638,306"/>
+        <text class="al" x="608" y="292" text-anchor="end">same I2C bus</text>
+        <rect class="box s-hw dash" x="640" y="284" width="240" height="44" rx="8"/>
+        <text class="b" x="760" y="303" text-anchor="middle">skin temperature (later)</text>
+        <text class="m" x="760" y="320" text-anchor="middle">TMP117 or MAX30205</text>
+      </svg>
+    </div>
+    <p class="hint">Scroll sideways to see the whole diagram.</p>
+    <figcaption>D4/D5 are the XIAO's I2C pins and D8–D10 its SPI pins. The interrupt and chip-select lines can go on any free pin; D2 and D3 are examples, and you pick them in the devicetree. The IMU and onboard flash sit on the board's own internal buses, so they use none of the 11 pins. Dashed means optional or later.</figcaption>
+  </figure>
+</section>
+
+<section class="sec" id="power">
+  <div class="sec-hd">
+    <h2>Where the battery goes at night</h2>
+    <p class="lede">Average current while recording, per part. One figure comes from a datasheet; the rest are estimates you'll replace with measurements at firmware step 11.</p>
+  </div>
+  <figure class="budget">
+    <div class="scroll">
+      <svg class="dg" viewBox="0 0 720 240" role="img" aria-label="Average current at night: sensor board power LED about 1.4 mA if not cut; MAX30101 chip 0.6 mA; LED pulses about 0.3 mA; nRF52840 about 0.3 mA; IMU about 0.05 mA; flash writes under 0.05 mA.">
+        <!-- scale: 0 mA at x=210, 268.75 px per mA -->
+        <line class="grid" x1="210" y1="18" x2="210" y2="208"/>
+        <line class="grid" x1="317.5" y1="18" x2="317.5" y2="208"/>
+        <line class="grid" x1="425" y1="18" x2="425" y2="208"/>
+        <line class="grid" x1="532.5" y1="18" x2="532.5" y2="208"/>
+        <line class="grid" x1="640" y1="18" x2="640" y2="208"/>
+        <text class="mo" x="210" y="226" text-anchor="middle">0</text>
+        <text class="mo" x="317.5" y="226" text-anchor="middle">0.4</text>
+        <text class="mo" x="425" y="226" text-anchor="middle">0.8</text>
+        <text class="mo" x="532.5" y="226" text-anchor="middle">1.2</text>
+        <text class="mo" x="640" y="226" text-anchor="middle">1.6 mA</text>
+
+        <text class="b" x="198" y="36" text-anchor="end">Board power LED</text>
+        <rect class="bar-warn" x="210" y="24" width="376.3" height="18" rx="3"/>
+        <text class="al" x="594" y="38">~1.4 mA · cut it</text>
+
+        <text class="b" x="198" y="68" text-anchor="end">MAX30101 chip</text>
+        <rect class="bar" x="210" y="56" width="161.3" height="18" rx="3"/>
+        <text class="al" x="379" y="70">0.6 mA · datasheet</text>
+
+        <text class="b" x="198" y="100" text-anchor="end">LED pulses</text>
+        <rect class="bar" x="210" y="88" width="80.6" height="18" rx="3"/>
+        <text class="al" x="298" y="102">~0.3 mA · estimate</text>
+
+        <text class="b" x="198" y="132" text-anchor="end">nRF52840</text>
+        <rect class="bar" x="210" y="120" width="80.6" height="18" rx="3"/>
+        <text class="al" x="298" y="134">~0.3 mA · estimate</text>
+
+        <text class="b" x="198" y="164" text-anchor="end">IMU, accel only</text>
+        <rect class="bar" x="210" y="152" width="13.4" height="18" rx="2"/>
+        <text class="al" x="231" y="166">~0.05 mA · estimate</text>
+
+        <text class="b" x="198" y="196" text-anchor="end">Flash writes</text>
+        <rect class="bar" x="210" y="184" width="5.4" height="18" rx="2"/>
+        <text class="al" x="223" y="198">under 0.05 mA · estimate</text>
+      </svg>
+    </div>
+    <figcaption>LED pulse current depends on how bright you drive the LEDs, which depends on your skin and the strap. The chip figure is the datasheet's typical value at 50 samples a second. Bluetooth stays off overnight; the morning download is a few minutes of radio.</figcaption>
+  </figure>
+  <div class="sum">
+    <div><span class="k">Power LED cut</span><b>~1.3 mA → ~10 nights</b><span>About 10 mAh a night, from roughly 120 mAh usable in a 150 mAh cell.</span></div>
+    <div class="bad"><span class="k">Power LED left on</span><b>~2.7 mA → ~5 nights</b><span>Worse in practice: the LED also burns through the day unless the slide switch is off.</span></div>
+  </div>
+</section>
+
+<section class="sec" id="parts">
+  <div class="sec-hd">
+    <h2>The parts</h2>
+    <p class="lede">Each card ends with the same comparison: the cheaper option, this pick, and the next level up.</p>
+  </div>
+  <div class="parts">
+
+    <article class="part">
+      <div class="part-hd">
+        <div class="ttl"><span class="role">Brain · buy</span><h3>Seeed XIAO nRF52840 Sense</h3></div>
+        <span class="chip keep">Keep</span>
+      </div>
+      <div class="part-body">
+        <div class="col">
+          <p class="job">Runs your firmware, reads both sensors, stores the night, sends it over Bluetooth in the morning, and charges the battery from USB-C.</p>
+          <dl class="specs">
+            <dt>Chip</dt><dd>Nordic nRF52840: Arm Cortex-M4F at 64 MHz</dd>
+            <dt>Memory</dt><dd>1 MB flash + 256 KB RAM on the chip; 2 MB QSPI flash on the board</dd>
+            <dt>Radio</dt><dd>Bluetooth 5 (LE), NFC</dd>
+            <dt>On board</dt><dd>6-axis IMU, microphone, LiPo charger, RGB LED, USB-C</dd>
+            <dt>Power</dt><dd>Standby under 5 µA (Seeed spec); charges at 50 or 100 mA</dd>
+            <dt>Pins</dt><dd>11; this build uses 7</dd>
+            <dt>Size</dt><dd>21 × 17.5 mm</dd>
+            <dt>Part no.</dt><dd>102010469 (the plain board is 102010448)</dd>
+          </dl>
+        </div>
+        <div class="col">
+          <p class="k2">Where</p>
+          <ul class="buy">
+            <li><span><a href="https://www.fabtolab.com/seeed-xiao-ble-nrf52840-sense-tinyml-tensorflow-lite-imu-microphone-bluetooth5-arm-cortex-m4-32-bit-processor-fpu-64mhz-nfc-zigbee" target="_blank" rel="noopener">Fab.to.Lab</a>, in stock</span><span>₹1,850</span></li>
+            <li class="out"><span><a href="https://in.element14.com/seeed-studio/102010469/xiao-board-arm-arduino-board/dp/4060352" target="_blank" rel="noopener">element14</a>, back ~1 Dec</span><span>₹1,382 + GST</span></li>
+            <li class="out"><span>TNTE Comp, sold out</span><span>₹1,434</span></li>
+          </ul>
+          <p class="k2">Watch</p>
+          <ul class="warn">
+            <li>Title must say "Sense". The plain board has no IMU.</li>
+            <li class="calm">Turn off the microphone and gyroscope in firmware; you only need the accelerometer.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tbl">
+        <table class="cmp">
+          <thead><tr><th>Option</th><th>What changes</th><th>Price</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tier">Cheaper</span>XIAO nRF52840 (plain)</td><td>No IMU, no microphone. You'd have to add an accelerometer.</td><td>~₹1,110</td><td>Skip</td></tr>
+            <tr class="pick"><td><span class="tier">This pick</span>XIAO nRF52840 Sense</td><td>Everything the band needs on one board.</td><td>₹1,850</td><td>Keep</td></tr>
+            <tr><td><span class="tier">Sideways</span>XIAO nRF52840 Sense Plus</td><td>Same chip and sensors, more pins on pads underneath.</td><td>~₹1,720</td><td>Not needed: 4 pins spare</td></tr>
+            <tr><td><span class="tier">Next level</span>XIAO nRF54L15 Sense</td><td>Newer chip: Cortex-M33 at 128 MHz, 1.5 MB memory, Bluetooth 6.0, same IMU. Zephyr only, fewer examples to learn from, extra flash chip not confirmed, India stock unknown.</td><td>$15.99 (Seeed)</td><td>Later, for v2</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="part">
+      <div class="part-hd">
+        <div class="ttl"><span class="role">Optical sensor · buy</span><h3>MAX30101 breakout (SmartElex)</h3></div>
+        <span class="chip test">Keep · test green first</span>
+      </div>
+      <div class="part-body">
+        <div class="col">
+          <p class="job">Flashes green, red and infrared light into your skin and measures what bounces back. Each heartbeat pushes more blood under the sensor and changes that light slightly; that wave is your pulse.</p>
+          <dl class="specs">
+            <dt>LEDs</dt><dd>Green 537 nm, red 660 nm, infrared 880 nm</dd>
+            <dt>Resolution</dt><dd>18-bit ADC, up to 3,200 samples/s (you'll use 50–100)</dd>
+            <dt>LED pulse</dt><dd>69, 118, 215 or 411 µs per sample</dd>
+            <dt>Buffer</dt><dd>32-sample FIFO, so the board can sleep between reads</dd>
+            <dt>Supplies</dt><dd>1.8 V chip; LEDs 3.1–5 V, green wants 4.5–5 V</dd>
+            <dt>Current</dt><dd>0.6 mA typical, 1.1 mA max (50/s, 215 µs) plus LED pulses; 0.7 µA shut down</dd>
+            <dt>Board</dt><dd>25.4 × 25.4 mm, 3.3 V, I2C address 0x57</dd>
+          </dl>
+        </div>
+        <div class="col">
+          <p class="k2">Where</p>
+          <ul class="buy">
+            <li><span><a href="https://www.amazon.in/SmartElex-MAX30101-Photodetector-Breakout-Board/dp/B0G2MBQRJR" target="_blank" rel="noopener">Amazon.in</a>, check live price</span><span>~₹796</span></li>
+            <li class="out"><span><a href="https://robocraze.com/products/smartelex-max30101-photodetector-breakout-board" target="_blank" rel="noopener">Robocraze</a>, sold out</span><span>₹1,155</span></li>
+            <li><span><a href="https://www.fabtolab.com/pimoroni-max30101-breakout-heart-rate-oximeter-smoke-sensor" target="_blank" rel="noopener">Fab.to.Lab</a> (Pimoroni board)</span><span>₹3,848</span></li>
+          </ul>
+          <p class="k2">Watch</p>
+          <ul class="warn">
+            <li>Green LED may be dim at 3.3 V. Test at step 4; IR is the fallback for nights.</li>
+            <li>Cut the power-LED jumper (~1.4 mA saved).</li>
+            <li class="calm">Not MAX30102: that one has no green LED.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tbl">
+        <table class="cmp">
+          <thead><tr><th>Option</th><th>What changes</th><th>Price</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tier">Cheaper</span>MAX30102 module</td><td>Red and IR only, no green. Many cheap clones. Fine at a fingertip, weak at the wrist.</td><td>₹130–260</td><td>Skip</td></tr>
+            <tr class="pick"><td><span class="tier">This pick</span>SmartElex MAX30101</td><td>All three colours, raw data, low price.</td><td>~₹796–1,155</td><td>Keep</td></tr>
+            <tr><td><span class="tier">Same, pricier</span>SparkFun SEN-16474</td><td>The original design SmartElex copies. Same green-LED limit.</td><td>~₹2,000–2,200</td><td>No gain</td></tr>
+            <tr><td><span class="tier">Same, pricier</span>Pimoroni MAX30101</td><td>Same chip, takes 3–5 V. Whether its LEDs can get 5 V on battery power isn't confirmed.</td><td>₹3,848</td><td>Only if the cheap one runs out</td></tr>
+            <tr><td><span class="tier">Different job</span>SparkFun Pulse Oximeter</td><td>Adds a chip that runs Maxim's fingertip algorithms and hands you finished numbers.</td><td>₹4,654</td><td>Skip: you write your own</td></tr>
+            <tr><td><span class="tier">Next level</span>Wearable optical front end (MAX86141 class) on your own PCB</td><td>What commercial bands use: separate LEDs and photodiodes, a proper 5 V LED supply, lower power.</td><td>custom PCB</td><td>Phase 6</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="part">
+      <div class="part-hd">
+        <div class="ttl"><span class="role">Motion sensor · on the XIAO</span><h3>LSM6DS3TR-C IMU</h3></div>
+        <span class="chip have">Built in</span>
+      </div>
+      <div class="part-body">
+        <div class="col">
+          <p class="job">Measures movement. Movement per 30-second epoch is the core of sleep/wake detection, and it also tells you when the pulse signal can't be trusted because your arm moved.</p>
+          <dl class="specs">
+            <dt>Axes</dt><dd>3-axis accelerometer + 3-axis gyroscope (keep the gyro off)</dd>
+            <dt>Range</dt><dd>±2 to ±16 g; 16-bit samples</dd>
+            <dt>Rates</dt><dd>12.5, 26, 52 Hz … up to 6.66 kHz. Your plan's 25–50 Hz means 26 or 52 Hz.</dd>
+            <dt>Low power</dt><dd>Accelerometer low-power mode at 12.5, 26 and 52 Hz</dd>
+            <dt>Buffer</dt><dd>4 KB FIFO</dd>
+            <dt>Current</dt><dd>0.9 mA with gyro + accel at full performance; accelerometer alone in low-power mode is a small fraction of that (check the datasheet table)</dd>
+          </dl>
+        </div>
+        <div class="col">
+          <p class="k2">Where</p>
+          <ul class="buy"><li><span>Already on the XIAO Sense</span><span>₹0</span></li></ul>
+          <p class="k2">Watch</p>
+          <ul class="warn"><li class="calm">Turn the gyro off at night: it multiplies the IMU's current for data you don't use.</li></ul>
+        </div>
+      </div>
+      <div class="tbl">
+        <table class="cmp">
+          <thead><tr><th>Option</th><th>What changes</th><th>Price</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr class="pick"><td><span class="tier">This pick</span>Onboard IMU</td><td>Free, already wired, plenty for sleep.</td><td>₹0</td><td>Keep</td></tr>
+            <tr><td><span class="tier">Next level</span>Ultra-low-power accelerometer (e.g. ADXL362)</td><td>The kind research actigraphs use; draws a few µA. Saves little here, because the optical sensor dominates the budget.</td><td>breakout + wiring</td><td>Not needed</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="part">
+      <div class="part-hd">
+        <div class="ttl"><span class="role">Night storage · decide</span><h3>W25Q128JV SPI flash, 16 MB</h3></div>
+        <span class="chip decide">Your call (option A)</span>
+      </div>
+      <div class="part-body">
+        <div class="col">
+          <p class="job">Holds the raw night until the morning download. The XIAO's own 2 MB holds about 1.5 hours of raw data, so raw nights need this chip (or compression).</p>
+          <dl class="specs">
+            <dt>Capacity</dt><dd>128 Mbit = 16 MB: one lean-raw night (about 13 MB)</dd>
+            <dt>Interface</dt><dd>SPI (also dual/quad), 2.7–3.6 V</dd>
+            <dt>Endurance</dt><dd>100,000 erase cycles per block. One night per day is centuries of wear.</dd>
+            <dt>Sleep</dt><dd>About 1 µA in power-down</dd>
+            <dt>Limit</dt><dd>Room for one night only. Skip a morning sync and the next night has nowhere to go.</dd>
+          </dl>
+        </div>
+        <div class="col">
+          <p class="k2">Where</p>
+          <ul class="buy">
+            <li><span><a href="https://www.flyrobo.in/w25q128-128m-bit-flash-storage-module" target="_blank" rel="noopener">FlyRobo</a>, generic module</span><span>₹118</span></li>
+            <li><span><a href="https://zbotic.in/product/w25q128-large-capacity-flash-storage-module/" target="_blank" rel="noopener">Zbotic</a>, generic module</span><span>₹148</span></li>
+            <li><span><a href="https://www.fabtolab.com/adafruit-5643-spi-flash-breakout-w25q128-128-mbit-16-mbyte-3v-5v" target="_blank" rel="noopener">Fab.to.Lab</a>, Adafruit board</span><span>₹594</span></li>
+          </ul>
+          <p class="k2">Watch</p>
+          <ul class="warn">
+            <li>Chip must say JV (3.3 V), not JW (1.8 V).</li>
+            <li>Remove any always-on power LED.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tbl">
+        <table class="cmp">
+          <thead><tr><th>Option</th><th>What changes</th><th>Price</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tier">Cheaper</span>Onboard 2 MB only</td><td>Needs compression (option B) or beats-and-motion only (option C).</td><td>₹0</td><td>If you pick B or C</td></tr>
+            <tr class="pick"><td><span class="tier">This pick</span>W25Q128JV, 16 MB</td><td>One raw night, four extra wires, a flash driver to write.</td><td>₹118–594</td><td>Lean</td></tr>
+            <tr><td><span class="tier">Next level</span>32–64 MB NOR flash (W25Q256 / W25Q512)</td><td>Two to four nights of buffer, same wiring and driver. Breakout boards are harder to find in India (not checked).</td><td>not checked</td><td>If you often skip syncs</td></tr>
+            <tr><td><span class="tier">Different</span>microSD module</td><td>Gigabytes, but more current, a bulky socket and a filesystem to manage.</td><td>~₹100 + card</td><td>Skip for a wearable</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="part">
+      <div class="part-hd">
+        <div class="ttl"><span class="role">Power · buy</span><h3>3.7 V LiPo, 150 mAh, protected</h3></div>
+        <span class="chip keep">Keep</span>
+      </div>
+      <div class="part-body">
+        <div class="col">
+          <p class="job">Powers the band through the night. Soldered to the XIAO's battery pads through a slide switch, and recharged over USB-C.</p>
+          <dl class="specs">
+            <dt>Energy</dt><dd>150 mAh × 3.7 V ≈ 0.56 Wh; full at 4.2 V</dd>
+            <dt>Protection</dt><dd>Cuts off on overcharge, over-discharge and short circuit</dd>
+            <dt>Charge time</dt><dd>About 2 h at 100 mA, 3–3.5 h at 50 mA (estimate)</dd>
+            <dt>Runtime</dt><dd>About 10 nights with the power LED cut (estimate)</dd>
+            <dt>Size</dt><dd>Probots 27 × 20 × 4 mm; TinyCircuits 20 × 20 × 5 mm</dd>
+          </dl>
+        </div>
+        <div class="col">
+          <p class="k2">Where</p>
+          <ul class="buy">
+            <li><span>Probots (from the build plan)</span><span>₹125</span></li>
+            <li><span><a href="https://www.fabtolab.com/tinycircuits-3.7v-lipo" target="_blank" rel="noopener">Fab.to.Lab</a>, TinyCircuits</span><span>~₹443</span></li>
+          </ul>
+          <p class="k2">Watch</p>
+          <ul class="warn">
+            <li class="calm">Never charge it while wearing it. Never squeeze or bend it.</li>
+            <li class="calm">The connector doesn't matter: you cut it off and solder.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tbl">
+        <table class="cmp">
+          <thead><tr><th>Option</th><th>What changes</th><th>Price</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tier">Smaller</span>LiPo, 100 mAh</td><td>Thinner band; still several nights per charge (estimate).</td><td>~₹100–150</td><td>If the case is tight</td></tr>
+            <tr class="pick"><td><span class="tier">This pick</span>LiPo, 150 mAh</td><td>About 10 nights, small enough for a wristband.</td><td>₹125–443</td><td>Keep</td></tr>
+            <tr><td><span class="tier">Bigger</span>LiPo, 250–300 mAh</td><td>More nights, but a thicker, heavier band.</td><td>~₹150–250</td><td>Not needed</td></tr>
+            <tr><td><span class="tier">Different</span>CR2032 coin cell</td><td>Not rechargeable, and it sags under LED pulses of tens of mA.</td><td>~₹30</td><td>Skip</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="part">
+      <div class="part-hd">
+        <div class="ttl"><span class="role">Skin temperature · later</span><h3>TMP117 or MAX30205</h3></div>
+        <span class="chip later">Later</span>
+      </div>
+      <div class="part-body">
+        <div class="col">
+          <p class="job">Tracks skin temperature through the night. It falls as you fall asleep and is used for cycle tracking. Add it once basic logging works; it shares the I2C bus.</p>
+          <dl class="specs">
+            <dt>MAX30205</dt><dd>±0.1 °C from 37 to 39 °C; 2.7–3.3 V; 600 µA while measuring, ~1.7 µA shut down</dd>
+            <dt>TMP117</dt><dd>±0.1 °C from −20 to 50 °C; 0.0078 °C steps; 1.7–5.5 V; 3.5 µA at one reading a second, 150 nA shut down</dd>
+            <dt>Reality</dt><dd>How well it touches your skin matters more than which chip it is</dd>
+          </dl>
+        </div>
+        <div class="col">
+          <p class="k2">Where</p>
+          <ul class="buy">
+            <li><span>MAX30205, Sensor Embedded (build plan)</span><span>₹695</span></li>
+            <li class="out"><span>TMP117 breakouts (SparkFun, Adafruit)</span><span>not checked</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="tbl">
+        <table class="cmp">
+          <thead><tr><th>Option</th><th>What changes</th><th>Price</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tier">In the plan</span>MAX30205</td><td>Clinical accuracy, but only from 37 to 39 °C, and a higher current while measuring.</td><td>₹695</td><td>Fine</td></tr>
+            <tr class="pick"><td><span class="tier">Lean</span>TMP117</td><td>Same ±0.1 °C over a much wider range, wider supply range, and far less current.</td><td>not checked</td><td>Prefer this</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+    <article class="part">
+      <div class="part-hd">
+        <div class="ttl"><span class="role">Reference · you have it</span><h3>Fingertip pulse oximeter</h3></div>
+        <span class="chip have">Have</span>
+      </div>
+      <div class="part-body">
+        <div class="col">
+          <p class="job">The yardstick for heart rate. Use it for spot checks on the bench and before bed or on waking. It doesn't log, so video its display if you want a record.</p>
+        </div>
+        <div class="col">
+          <p class="k2">Watch</p>
+          <ul class="warn"><li class="calm">Check it first: fresh batteries, 60-second pulse count, within about ±3 bpm.</li></ul>
+        </div>
+      </div>
+      <div class="tbl">
+        <table class="cmp">
+          <thead><tr><th>Option</th><th>What changes</th><th>Price</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr class="pick"><td><span class="tier">This pick</span>Your oximeter</td><td>Spot checks for heart rate; rough SpO2.</td><td>₹0</td><td>Use it</td></tr>
+            <tr><td><span class="tier">Next level</span>ECG chest strap (e.g. Polar H10)</td><td>Beat-to-beat timing accurate enough to check your HRV numbers. It sends them over the standard Bluetooth heart-rate profile, which bleak reads without any vendor SDK.</td><td>more than the whole build</td><td>Only if HRV checks matter</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section class="sec" id="tools">
+  <div class="sec-hd">
+    <h2>Tools</h2>
+    <p class="lede">You keep these after the project. Prices are estimates from the build plan.</p>
+  </div>
+  <div class="tools-wrap tbl">
+    <table class="tools">
+      <thead><tr><th>Tool</th><th>Why</th><th>Look for</th><th>Price</th><th>Next level</th></tr></thead>
+      <tbody>
+        <tr><td>Soldering iron</td><td>Headers on the sensor board, battery wires</td><td>Temperature control, a fine tip</td><td>₹800–2,500</td><td>A USB-C smart iron (e.g. Pinecil): heats in seconds. Not needed.</td></tr>
+        <tr><td>Solder, flux, wick</td><td>Clean joints, fixing mistakes</td><td>Thin rosin-core solder, a flux pen</td><td>₹300–500</td><td>-</td></tr>
+        <tr><td>Multimeter</td><td>Battery voltage, continuity, and sleep current at firmware step 11</td><td><b>A DC µA range</b> (200 µA or 2 mA), or you can't check low power</td><td>₹500–1,500</td><td>Nordic Power Profiler Kit II: graphs current from below 1 µA to 1 A. Only if step 11 needs it.</td></tr>
+        <tr><td>Breadboard + jumpers</td><td>The bench prototype</td><td>Half-size board, male-to-female jumpers</td><td>₹150–300</td><td>-</td></tr>
+        <tr><td>USB-C data cable</td><td>Flashing and serial output</td><td>Must carry data, not only charge</td><td>₹0–300</td><td>-</td></tr>
+        <tr><td>Wire, switch, heat-shrink, Kapton tape</td><td>Power switch, insulating contacts before you wear it</td><td>Thin silicone wire, a tiny slide switch</td><td>₹100–200</td><td>-</td></tr>
+        <tr><td>Strap</td><td>Test nights before the case exists</td><td>20 mm silicone or hook-and-loop</td><td>₹150–400</td><td>Printed case with strap lugs (Phase 4)</td></tr>
+        <tr><td>Debug probe (optional)</td><td>Breakpoints instead of print statements</td><td>A CMSIS-DAP probe wired to the XIAO's debug pads underneath</td><td>~₹1,000 (estimate)</td><td>Not needed at first: USB serial printing is enough</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="sec" id="decide">
+  <div class="sec-hd">
+    <h2>Your decisions</h2>
+  </div>
+  <ol class="dec">
+    <li><b>16 MB flash chip: yes or no?</b><p>Yes means raw nights (storage option A). If yes: a generic JV module (₹118–148) saves money, and Adafruit's board (₹594) is better documented. My lean: yes, generic, minus its power LED.</p></li>
+    <li><b>Sensor: SmartElex from Amazon, or Pimoroni from Fab.to.Lab?</b><p>Same chip. The green-LED question applies to both, so the ₹3,000 extra doesn't buy a fix. My lean: SmartElex, then test green at step 4.</p></li>
+    <li><b>Battery: Probots (₹125) or TinyCircuits (₹443)?</b><p>Both 150 mAh with protection. Probots is the better deal; TinyCircuits only makes sense if everything comes from Fab.to.Lab in one order.</p></li>
+    <li><b>Multimeter: one with a µA range.</b><p>Costs about the same as one without, and it's the only way to check the low-power firmware without the ₹10k profiler.</p></li>
+    <li><b>Skin temperature later: TMP117 rather than MAX30205?</b><p>Not needed now. Noted so the build plan doesn't lock in the higher-current part.</p></li>
+  </ol>
+</section>
+
+<footer>
+  <div class="links">
+    <a href="https://claude.ai/artifact/V8tGNCdFt2NYx6RFtiKZuu" target="_blank" rel="noopener">Good Sleep build plan</a>
+    <a href="https://claude.ai/artifact/X8z2KFZJ2zPk3WX2EABFsM" target="_blank" rel="noopener">Cost estimate and shopping list</a>
+    <a href="https://ez.analog.com/optical_sensing/w/documents/21197/why-is-the-max30101-green-led-not-lighting" target="_blank" rel="noopener">Analog Devices: green LED supply</a>
+    <a href="https://learn.sparkfun.com/tutorials/sparkfun-photodetector-max30101-hookup-guide/hardware-overview" target="_blank" rel="noopener">SparkFun MAX30101 hookup guide</a>
+    <a href="https://www.analog.com/products/MAX30101" target="_blank" rel="noopener">MAX30101 datasheet</a>
+    <a href="https://wiki.seeedstudio.com/XIAO_BLE/" target="_blank" rel="noopener">Seeed XIAO nRF52840 wiki</a>
+    <a href="https://wiki.seeedstudio.com/battery_charging_considerations/" target="_blank" rel="noopener">Seeed battery charging notes</a>
+    <a href="https://wiki.seeedstudio.com/xiao_nrf54l15_sense_getting_started/" target="_blank" rel="noopener">XIAO nRF54L15 Sense wiki</a>
+    <a href="https://www.st.com/en/mems-and-sensors/lsm6ds3tr-c.html" target="_blank" rel="noopener">ST LSM6DS3TR-C</a>
+    <a href="https://www.ti.com/product/TMP117" target="_blank" rel="noopener">TI TMP117</a>
+    <a href="https://www.analog.com/en/products/max30205.html" target="_blank" rel="noopener">MAX30205</a>
+  </div>
+  <p>Prices are from listings on Sat 14 Nov 2026 and change often; "not checked" means I couldn't confirm a price. Current figures marked estimate are mine, not a datasheet's.</p>
+</footer>
+
+</div>
