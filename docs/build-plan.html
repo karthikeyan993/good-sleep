@@ -209,7 +209,7 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
 <div class="wrap">
 
 <header class="top">
-  <p class="eyebrow">good-sleep · build plan · proposal · Sat 14 Nov 2026</p>
+  <p class="eyebrow">good-sleep · build plan · decided Sat 14 Nov 2026</p>
   <h1>Good Sleep</h1>
   <p class="lede">A sleep tracker I build end to end: optical and motion sensors, firmware in C, Bluetooth sync, a Python server, sleep analysis, and a dashboard on my iPhone. It runs inside the roadmap's existing slots, so the job search still starts Mon 1 Mar.</p>
   <dl class="facts">
@@ -219,9 +219,9 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
     <div><dt>First full night synced</dt><dd>Target: end of Feb<small>an estimate</small></dd></div>
   </dl>
   <div class="status">
-    <span class="pill open">3 decisions open</span>
-    <span class="pill open">1 design question</span>
-    <span class="pill">Parts: to order</span>
+    <span class="pill">Decisions made 14 Nov</span>
+    <span class="pill">Storage: 16 MB chip</span>
+    <span class="pill open">Parts: to order</span>
   </div>
   <nav class="nav" aria-label="Sections">
     <a href="#decisions">Decisions</a>
@@ -236,15 +236,15 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
 
 <section class="sec" id="decisions">
   <div class="sec-hd">
-    <h2>Decide first</h2>
-    <p class="lede">These are yours to choose. The rest of the page assumes the recommended option in each card, so it changes if you pick the other one.</p>
+    <h2>Decisions</h2>
+    <p class="lede">Decided Sat 14 Nov. Fit: inside the existing slots, with the C and systems learning pulled along by the firmware (a hybrid). Firmware: C on Zephyr, with a Zig rewrite parked for later. Phone: the Mac syncs, the iPhone views.</p>
   </div>
   <div class="dgrid">
     <article class="dcard">
       <p class="eyebrow">Decision 1</p>
       <h3>How does it fit the roadmap?</h3>
       <div class="opt">
-        <b>Inside existing slots <span class="rec">Recommended</span></b>
+        <b>Inside existing slots <span class="rec">Chosen</span></b>
         <p>The server and analysis become the Python phase's own project. The firmware takes Sunday's second Systems block. Mon 1 Mar doesn't move.</p>
       </div>
       <div class="opt">
@@ -256,7 +256,7 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
       <p class="eyebrow">Decision 2</p>
       <h3>Firmware language and framework</h3>
       <div class="opt">
-        <b>C on Zephyr <span class="rec">Recommended</span></b>
+        <b>C on Zephyr <span class="rec">Chosen</span></b>
         <p>The same C you study in King and CS:APP. Real threads, interrupts, power saving and Bluetooth. Zephyr supports the XIAO and the MAX30101 out of the box.</p>
       </div>
       <div class="opt">
@@ -269,7 +269,7 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
       <p class="eyebrow">Decision 3</p>
       <h3>How does a night reach your phone?</h3>
       <div class="opt">
-        <b>Mac syncs, iPhone views <span class="rec">Recommended</span></b>
+        <b>Mac syncs, iPhone views <span class="rec">Chosen</span></b>
         <p>A Python script on the MacBook downloads the night over Bluetooth and uploads it. The dashboard is a web page saved to your Home Screen.</p>
       </div>
       <div class="opt">
@@ -414,7 +414,7 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
 
 <section class="sec" id="storage">
   <div class="sec-hd">
-    <p class="eyebrow" style="color: var(--open)">Design question · settle it in your log-format doc</p>
+    <p class="eyebrow" style="color: var(--open)">Design question · decided 14 Nov: option A</p>
     <h2>Where do raw nights fit?</h2>
     <p class="lede">The brief says to buffer the whole night in the board's flash. At the brief's sample rates one night is about 17 MB, and the board holds 2 MB. For 8 hours, 2 MB allows about 73 bytes a second.</p>
   </div>
@@ -464,7 +464,7 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
   </figure>
   <div class="opts">
     <div class="note lean">
-      <p class="k">A · add a chip <span class="rec">Lean</span></p>
+      <p class="k">A · add a chip <span class="rec">Chosen</span></p>
       <h3>16 MB SPI flash module</h3>
       <p>Lean raw fits, so you keep the raw signal your algorithm learns from. Costs a few more wires, a flash driver to write (good C practice), and a longer morning download. About ₹150–300 (estimate).</p>
     </div>
@@ -479,7 +479,7 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
       <p>About 0.1 MB a night, so it fits easily. But it throws away the raw signal you need to improve beat detection and staging later.</p>
     </div>
   </div>
-  <p class="callout">Lean: A while developing. B and C make good systems exercises once raw nights work. It changes the data format, so it's your call.</p>
+  <p class="callout">Decided 14 Nov: A. Two 16 MB chips, one spare for other projects. B and C stay good systems exercises once raw nights work.</p>
 </section>
 
 <section class="sec" id="timeline">
@@ -662,7 +662,7 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
     <li><div>Keep going with the course in the Main slot. <span>It now teaches you how to build your own server.</span></div></li>
     <li><div>Sat 21 Nov: a 15-minute design sketch. <span>What the device records, what the server stores, what the dashboard shows.</span></div></li>
     <li><div>Sunday stays King + CS Primer until the parts arrive.</div></li>
-    <li><div>Answer the three decisions and the storage question.</div></li>
+    <li><div>Decisions made 14 Nov. <span>Every step is a card on the Good Sleep board in Todoist.</span></div></li>
   </ol>
 </section>
 
