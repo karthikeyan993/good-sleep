@@ -197,17 +197,19 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 16px; }
   <h1>Hardware</h1>
   <p class="lede">Every part in the wristband: what it does, how much it holds or draws, where to buy it, and what the cheaper and better versions would change. Three things on the current list need fixing or testing; they're first.</p>
   <dl class="facts">
-    <div><dt>Core parts</dt><dd>about ₹2,900<small>board, sensor, battery, flash chip</small></dd></div>
+    <div><dt>Core parts</dt><dd>about ₹3,100–4,500<small>with vibration; depends on which driver board is in stock</small></dd></div>
     <div><dt>Average draw at night</dt><dd>about 1.3 mA<small>estimate, measured at firmware step 11</small></dd></div>
     <div><dt>Nights per charge</dt><dd>about 10<small>estimate, 150 mAh battery</small></dd></div>
-    <div><dt>Pins used</dt><dd>7 of 11<small>so the Sense Plus isn't needed</small></dd></div>
+    <div><dt>Pins used</dt><dd>7 of 11<small>vibration shares the I2C pins</small></dd></div>
   </dl>
   <nav class="nav" aria-label="Sections">
     <a href="#watch">Watch-outs</a>
     <a href="#wiring">Wiring</a>
     <a href="#power">Power budget</a>
     <a href="#parts">Parts</a>
+    <a href="#vibration">Vibration</a>
     <a href="#tools">Tools</a>
+    <a href="#safety">Safety</a>
     <a href="#decide">Your decisions</a>
   </nav>
 </header>
@@ -234,7 +236,7 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 16px; }
   </div>
   <figure class="wiring">
     <div class="scroll">
-      <svg class="dg" viewBox="0 0 900 340" role="img" aria-label="Wiring: USB-C and a 150 mAh LiPo through a slide switch feed the XIAO nRF52840 Sense, which holds the nRF52840, charger, 3.3 V regulator, IMU, 2 MB flash and microphone. The MAX30101 breakout connects over I2C on D4 and D5 with its interrupt on D2. An optional 16 MB SPI flash connects on D8, D9, D10 with chip select on D3. A later skin temperature sensor shares the I2C bus.">
+      <svg class="dg" viewBox="0 0 900 340" role="img" aria-label="Wiring: USB-C and a 150 mAh LiPo through a slide switch feed the XIAO nRF52840 Sense, which holds the nRF52840, charger, 3.3 V regulator, IMU, 2 MB flash and microphone. The MAX30101 breakout connects over I2C on D4 and D5 with its interrupt on D2. An optional 16 MB SPI flash connects on D8, D9, D10 with chip select on D3. A DRV2605L haptic driver with a coin vibration motor shares the I2C bus.">
         <!-- power in -->
         <rect class="box s-hw" x="20" y="60" width="150" height="60" rx="8"/>
         <text class="b" x="95" y="85" text-anchor="middle">USB-C</text>
@@ -294,16 +296,16 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 16px; }
         <text class="m" x="760" y="229" text-anchor="middle">W25Q128JV · storage option A</text>
         <text class="mo" x="760" y="247" text-anchor="middle">3.3 V part only</text>
 
-        <!-- later temp sensor -->
-        <polyline class="ln d" points="616,100 616,306 638,306"/>
+        <!-- vibration on the same I2C bus -->
+        <polyline class="ln" points="616,100 616,306 638,306"/>
         <text class="al" x="608" y="292" text-anchor="end">same I2C bus</text>
-        <rect class="box s-hw dash" x="640" y="284" width="240" height="44" rx="8"/>
-        <text class="b" x="760" y="303" text-anchor="middle">skin temperature (later)</text>
-        <text class="m" x="760" y="320" text-anchor="middle">TMP117 or MAX30205</text>
+        <rect class="box s-hw" x="640" y="284" width="240" height="44" rx="8"/>
+        <text class="b" x="760" y="303" text-anchor="middle">vibration: DRV2605L + motor</text>
+        <text class="m" x="760" y="320" text-anchor="middle">I2C 0x5A · 10 mm coin motor</text>
       </svg>
     </div>
     <p class="hint">Scroll sideways to see the whole diagram.</p>
-    <figcaption>D4/D5 are the XIAO's I2C pins and D8–D10 its SPI pins. The interrupt and chip-select lines can go on any free pin; D2 and D3 are examples, and you pick them in the devicetree. The IMU and onboard flash sit on the board's own internal buses, so they use none of the 11 pins. Dashed means optional or later.</figcaption>
+    <figcaption>D4/D5 are the XIAO's I2C pins and D8–D10 its SPI pins. The interrupt and chip-select lines can go on any free pin; D2 and D3 are examples, and you pick them in the devicetree. The IMU and onboard flash sit on the board's own internal buses, so they use none of the 11 pins. The vibration driver shares the I2C bus at its own address, so it needs no extra pins either, and a skin-temperature sensor can join the same bus later. Dashed means optional.</figcaption>
   </figure>
 </section>
 
@@ -352,7 +354,7 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 16px; }
         <text class="al" x="223" y="198">under 0.05 mA · estimate</text>
       </svg>
     </div>
-    <figcaption>LED pulse current depends on how bright you drive the LEDs, which depends on your skin and the strap. The chip figure is the datasheet's typical value at 50 samples a second. Bluetooth stays off overnight; the morning download is a few minutes of radio.</figcaption>
+    <figcaption>LED pulse current depends on how bright you drive the LEDs, which depends on your skin and the strap. The chip figure is the datasheet's typical value at 50 samples a second. Bluetooth stays off overnight; the morning download is a few minutes of radio. The vibration motor draws 50–90 mA, but only for a second or two per alert: well under 1 mAh a day.</figcaption>
   </figure>
   <div class="sum">
     <div><span class="k">Power LED cut</span><b>~1.3 mA → ~10 nights</b><span>About 10 mAh a night, from roughly 120 mAh usable in a 150 mAh cell.</span></div>
@@ -581,6 +583,53 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 16px; }
       </div>
     </article>
 
+    <article class="part" id="vibration">
+      <div class="part-hd">
+        <div class="ttl"><span class="role">Vibration · buy</span><h3>DRV2605L haptic driver + coin motor</h3></div>
+        <span class="chip keep">Add to the order</span>
+      </div>
+      <div class="part-body">
+        <div class="col">
+          <p class="job">Buzzes your wrist for move reminders and a silent alarm. The driver chip does the hard part: it powers the motor, absorbs the motor's electrical kickback, and plays the vibration your firmware asks for over I2C.</p>
+          <dl class="specs">
+            <dt>Driver</dt><dd>TI DRV2605L on the I2C bus (address 0x5A), so no extra pins; runs on 2–5.2 V</dd>
+            <dt>Control</dt><dd>Over 100 built-in effects (click, double-click, ramps, long buzz), adjustable strength, and your own patterns</dd>
+            <dt>Settings</dt><dd>Set in the dashboard and sent to the band at the morning sync. Double-tap the band to stop an alarm: the IMU detects taps.</dd>
+            <dt>Motor</dt><dd>10 mm coin vibration motor, 2.7–3.4 mm thick, 3 V</dd>
+            <dt>Current</dt><dd>Motor 50–90 mA while buzzing, up to ~120 mA at start; driver about 4 µA idle</dd>
+            <dt>Battery</dt><dd>A second or two per alert: well under 1 mAh a day</dd>
+            <dt>Space</dt><dd>Driver board about 18 × 17 mm; makes the case a few mm bigger</dd>
+          </dl>
+        </div>
+        <div class="col">
+          <p class="k2">Where</p>
+          <ul class="buy">
+            <li class="out"><span><a href="https://robocraze.com/products/smartelex-drv2605l-haptic-motor-driver" target="_blank" rel="noopener">Robocraze</a>, SmartElex, out of stock</span><span>₹152</span></li>
+            <li><span><a href="https://www.tanotis.com/products/sparkfun-haptic-motor-driver-drv2605l" target="_blank" rel="noopener">Tanotis</a>, SparkFun board</span><span>₹1,595</span></li>
+            <li><span><a href="https://kitsguru.com/products/1027-10mm-diameter-2-7mm-width-flat-button-coin-type-micro-vibrator-motor-3v" target="_blank" rel="noopener">KitsGuru</a>, coin motor</span><span>₹22–49</span></li>
+          </ul>
+          <p class="k2">Watch</p>
+          <ul class="warn">
+            <li>Never wire the motor straight to a pin: it needs far more current than a pin can give.</li>
+            <li class="calm">Buy two or three motors; their thin leads break easily.</li>
+            <li class="calm">If the driver board has a power LED, cut or remove it, like the sensor board's.</li>
+            <li class="calm">Firmware rule: no buzzing during sleep hours except the alarm.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tbl">
+        <table class="cmp">
+          <thead><tr><th>Option</th><th>What changes</th><th>Price</th><th>Verdict</th></tr></thead>
+          <tbody>
+            <tr><td><span class="tier">Cheaper</span>Transistor + diode + motor</td><td>On/off, plus strength by pulsing it (PWM). You build the switch yourself, and forgetting the diode kills the transistor.</td><td>~₹30</td><td>Works, more ways to get it wrong</td></tr>
+            <tr class="pick"><td><span class="tier">This pick</span>DRV2605L + coin motor</td><td>Patterns and strength over I2C; the chip protects itself and the motor.</td><td>₹170–1,650</td><td>Add</td></tr>
+            <tr><td><span class="tier">Next level</span>LRA motor on the same driver</td><td>Crisper, shorter taps, the kind phones use, and more efficient. The driver tunes itself to the motor. Harder to find in India (not checked).</td><td>not checked</td><td>Later</td></tr>
+            <tr><td><span class="tier">Different</span>Piezo buzzer</td><td>Sound instead of vibration; wakes anyone sleeping next to you.</td><td>~₹20</td><td>Skip</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </article>
+
     <article class="part">
       <div class="part-hd">
         <div class="ttl"><span class="role">Skin temperature · later</span><h3>TMP117 or MAX30205</h3></div>
@@ -664,6 +713,36 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 16px; }
   </div>
 </section>
 
+<section class="sec" id="safety">
+  <div class="sec-hd">
+    <h2>Rookie mistakes, and what stops them</h2>
+    <p class="lede">The battery's protection circuit already cuts off on overcharge, over-discharge and short circuit, and the XIAO's charger stops when the battery is full. These are the mistakes those don't cover.</p>
+  </div>
+  <ul class="watch">
+    <li><span class="tag">Kills the board</span><div><b>Battery connected backwards.</b><span>Battery connectors have no standard wiring, and the wire colours on cheap cells can be wrong. Check which wire is + with the multimeter every time before connecting, mark it, and solder it directly once you're sure.</span></div></li>
+    <li><span class="tag">Sparks, heat</span><div><b>Battery wires touching.</b><span>Cut and strip one wire at a time, and tape the other end meanwhile. The protection circuit cuts off a short, but don't test it.</span></div></li>
+    <li><span class="tag">Shorts</span><div><b>Soldering with power connected.</b><span>Switch the battery off and unplug USB before the iron touches the board. Keep the iron, and any lighter for heat-shrink, away from the battery.</span></div></li>
+    <li><span class="tag">Shorts</span><div><b>A solder bridge between two pins.</b><span>Before the first power-up, beep-test neighbouring pins with the multimeter. Then power it through a USB power meter: if it draws over about 100 mA while doing nothing, unplug and look. A cheap USB hub between the board and the Mac also shields the Mac's port.</span></div></li>
+    <li><span class="tag">Fire risk</span><div><b>Charging on the bed, or unattended.</b><span>Charge on a hard surface, inside a LiPo safety bag while it's a prototype, and never while wearing it. Keep the charge rate at 50 mA: gentle for a 150 mAh cell.</span></div></li>
+    <li><span class="tag">Stop using</span><div><b>A puffy battery.</b><span>Swelling means the cell is damaged. Disconnect it, don't puncture it, and take it to e-waste.</span></div></li>
+    <li><span class="tag calm">Firmware</span><div><b>Draining the battery flat.</b><span>A bug that leaves the sensors on can run it down to the protection cut-off. Have the firmware stop recording below about 3.5 V, and keep the P0.14 rule.</span></div></li>
+    <li><span class="tag calm">Small stuff</span><div><b>Eyes, static, fumes.</b><span>Wear glasses when clipping leads, because the ends fly. Touch something metal before handling boards. Open a window while soldering, and wash your hands after leaded solder.</span></div></li>
+  </ul>
+  <div class="tools-wrap tbl">
+    <table class="tools">
+      <thead><tr><th>Safety extra</th><th>Why</th><th>Price</th><th>Need it?</th></tr></thead>
+      <tbody>
+        <tr><td>USB-C power meter</td><td>Shows the current at first power-up and while charging, so a short shows up as a number before it becomes heat</td><td>₹300–800 (estimate)</td><td>Yes</td></tr>
+        <tr><td>LiPo safety bag</td><td>Fire-resistant pouch to charge in during the prototype stage; RC hobby shops sell them</td><td>not checked</td><td>Yes</td></tr>
+        <tr><td>Safety glasses</td><td>Flying lead ends and solder splashes</td><td>~₹100–200 (estimate)</td><td>Yes</td></tr>
+        <tr><td>Helping hands or PCB holder</td><td>Holds parts so your fingers stay away from the iron</td><td>~₹200–500 (estimate)</td><td>Recommended</td></tr>
+        <tr><td>Silicone soldering mat</td><td>Heat-proof surface that protects the table</td><td>~₹300–600 (estimate)</td><td>Optional</td></tr>
+        <tr><td>Spare XIAO</td><td>One mistake doesn't stop the project</td><td>₹1,850</td><td>Optional</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
 <section class="sec" id="decide">
   <div class="sec-hd">
     <h2>Your decisions</h2>
@@ -674,6 +753,7 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 16px; }
     <li><b>Battery: Probots (₹125) or TinyCircuits (₹443)?</b><p>Both 150 mAh with protection. Probots is the better deal; TinyCircuits only makes sense if everything comes from Fab.to.Lab in one order.</p></li>
     <li><b>Multimeter: one with a µA range.</b><p>Costs about the same as one without, and it's the only way to check the low-power firmware without the ₹10k profiler.</p></li>
     <li><b>Skin temperature later: TMP117 rather than MAX30205?</b><p>Not needed now. Noted so the build plan doesn't lock in the higher-current part.</p></li>
+    <li><b>Haptic driver: which board?</b><p>SmartElex at Robocraze is ₹152 but was out of stock; SparkFun's is ₹1,595. Same chip, so take whichever is in stock. Either way, buy two or three coin motors.</p></li>
   </ol>
 </section>
 

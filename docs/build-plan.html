@@ -587,7 +587,14 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
         <li><span class="n">10</span><div class="st"><b>Bluetooth download + Mac sync script</b><span>A custom GATT service, chunked transfer, bleak on the Mac. The Mac also sets the board's clock.</span><span class="done">a whole night downloads and the checksum matches</span></div></li>
         <li><span class="n">11</span><div class="st"><b>Low power</b><span>Sleep between samples; measure the current draw.</span><span class="done">8 hours on one charge</span></div></li>
       </ol>
-      <p class="after">March, at the roadmap's lighter pace: printed case, light barrier, strap, wear tests (Phase 4).</p>
+      <p class="grp">Extras · after the overnight logger works · Mar onward</p>
+      <ol class="steps">
+        <li><span class="n">12</span><div class="st"><b>Vibration</b><span>The DRV2605L haptic driver over I2C: pick its built-in effects, set the strength, play your own patterns.</span><span class="done">the band plays a pattern you chose</span></div></li>
+        <li><span class="n">13</span><div class="st"><b>Steps</b><span>Switch on the IMU's built-in step counter and read it on an interrupt, so the main chip stays asleep.</span><span class="done">close to 500 steps you counted yourself</span></div></li>
+        <li><span class="n">14</span><div class="st"><b>Move reminder</b><span>A small state machine: no steps for N minutes during your active hours, then a buzz. Settings come from the dashboard with the morning sync (protocol v0.2).</span><span class="done">buzzes after 50 still minutes, never at night</span></div></li>
+        <li><span class="n">15</span><div class="st"><b>Smart alarm</b><span>Vibrate in the 30 minutes before your alarm once you start moving. Double-tap the band to stop it: the IMU detects taps.</span><span class="done">it wakes you, and a double-tap stops it</span></div></li>
+      </ol>
+      <p class="after">March, at the roadmap's lighter pace: printed case, light barrier, strap, wear tests (Phase 4), alongside the extras.</p>
     </div>
 
     <div class="ladder main-l">
@@ -640,6 +647,7 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
     <li>Rust firmware port <small>Embassy</small></li>
     <li>Custom PCB <small>KiCad, JLCPCB</small></li>
     <li>Skin temperature <small>MAX30205</small></li>
+    <li>Daytime and exercise heart rate <small>motion noise, battery</small></li>
     <li>Reading the old oximeter over Bluetooth</li>
   </ul>
 </section>
@@ -649,7 +657,7 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
     <h2>This week</h2>
   </div>
   <ol class="week">
-    <li><div>Order parts 1–10 from the build plan (₹4.7–8.7k). <span>Skip the oximeter, since you have one. The XIAO and MAX30101 were sold out at some shops, so check Robu, Robocraze and TNTE. If you lean toward raw nights, add a 16 MB SPI flash module to the same order.</span></div></li>
+    <li><div>Order parts 1–10 from the build plan, plus the vibration parts and safety extras. <span>Vibration: a DRV2605L haptic driver and two or three 10 mm coin motors. Safety: a USB power meter, a LiPo safety bag, safety glasses. Skip the oximeter, since you have one. If you lean toward raw nights, add a 16 MB SPI flash module. The <a href="https://claude.ai/artifact/SA2F6snirbWCmEdQUTUNmn" target="_blank" rel="noopener">hardware page</a> lists every part with prices.</span></div></li>
     <li><div>Check your oximeter. <span>Fresh batteries, then a 60-second pulse count while sitting still. Within about ±3 bpm means it's a usable reference.</span></div></li>
     <li><div>Keep going with the course in the Main slot. <span>It now teaches you how to build your own server.</span></div></li>
     <li><div>Sat 21 Nov: a 15-minute design sketch. <span>What the device records, what the server stores, what the dashboard shows.</span></div></li>
@@ -662,6 +670,8 @@ footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
   <div class="links">
     <a href="https://claude.ai/artifact/X8z2KFZJ2zPk3WX2EABFsM" target="_blank" rel="noopener">Build plan and costs</a>
     <a href="https://claude.ai/artifact/Dy6AnZyAdLZiAciUmXjPg5" target="_blank" rel="noopener">Learning roadmap</a>
+    <a href="https://claude.ai/artifact/SA2F6snirbWCmEdQUTUNmn" target="_blank" rel="noopener">Hardware</a>
+    <a href="https://claude.ai/artifact/HyKwjZAfPRNs3kaQSsKwMd" target="_blank" rel="noopener">The band (3D)</a>
   </div>
   <p>Not a medical device. Sleep stages, heart rate variability and SpO2 from this tracker are estimates.</p>
 </footer>
