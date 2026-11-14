@@ -1,0 +1,669 @@
+<title>Good Sleep Build Plan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one reading column of stacked sections; the diagram and timeline break wider. Same type and lane colours as the roadmap page. */
+:root {
+  --bg: #f5f5f0;
+  --surface: #ffffff;
+  --band: #ecede6;
+  --band-2: #dfe1d8;
+  --ink: #1a201c;
+  --muted: #5e675f;
+  --rule: #d3d6cd;
+  --main: #e09a00;
+  --main-ink: #8f6200;
+  --main-soft: #fbeccb;
+  --sys: #8a5cc2;
+  --sys-ink: #6f42a8;
+  --sys-soft: #ece3f7;
+  --on-sys: #ffffff;
+  --on-main: #1a201c;
+  --hw: #8b938b;
+  --open: #c4471d;
+  --f-display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131714; --surface: #1b201c; --band: #222823; --band-2: #2c332d;
+    --ink: #e5e9e2; --muted: #9aa39a; --rule: #353d36;
+    --main: #f0b030; --main-ink: #f3bd4f; --main-soft: #3a2f14;
+    --sys: #b28fe3; --sys-ink: #c4a6ec; --sys-soft: #2d2440; --on-sys: #17121f; --on-main: #1a201c;
+    --hw: #7c857c; --open: #ff8b5e;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #131714; --surface: #1b201c; --band: #222823; --band-2: #2c332d;
+  --ink: #e5e9e2; --muted: #9aa39a; --rule: #353d36;
+  --main: #f0b030; --main-ink: #f3bd4f; --main-soft: #3a2f14;
+  --sys: #b28fe3; --sys-ink: #c4a6ec; --sys-soft: #2d2440; --on-sys: #17121f; --on-main: #1a201c;
+  --hw: #7c857c; --open: #ff8b5e;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
+a { color: inherit; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+a:focus-visible { outline: 2px solid var(--sys); outline-offset: 2px; border-radius: 3px; }
+
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 56px;
+  display: grid; gap: 56px;
+}
+.eyebrow { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 800; letter-spacing: -.015em; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(40px, 7vw, 64px); line-height: .95; }
+h2 { font-size: clamp(24px, 3.4vw, 30px); line-height: 1.1; }
+h3 { font-size: 18px; line-height: 1.2; }
+p { margin: 0; }
+.lede { font-size: 16.5px; color: var(--muted); max-width: 64ch; }
+.sec { display: grid; gap: 20px; min-width: 0; }
+.sec-hd { display: grid; gap: 8px; }
+.mono { font-family: var(--f-mono); font-size: 12px; }
+
+/* header */
+.top { display: grid; gap: 18px; }
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; margin: 6px 0 0; }
+.facts div { background: var(--surface); padding: 12px 14px; display: grid; gap: 2px; min-width: 0; }
+.facts dt { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 0; font-weight: 700; font-size: 15px; line-height: 1.3; }
+.facts dd small { display: block; font-weight: 400; color: var(--muted); font-size: 12.5px; }
+.status { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill { font-family: var(--f-mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase; border-radius: 99px; padding: 4px 10px; border: 1.5px solid var(--rule); color: var(--muted); }
+.pill.open { border-color: var(--open); color: var(--open); }
+.nav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; }
+.nav a { color: var(--muted); }
+
+/* decisions */
+.dgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.dcard { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 18px; display: grid; gap: 14px; align-content: start; min-width: 0; }
+.dcard .eyebrow { color: var(--open); }
+.opt { display: grid; gap: 4px; padding-top: 12px; border-top: 1px dashed var(--rule); }
+.opt b { font-size: 15px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; }
+.opt p { font-size: 13.5px; color: var(--muted); }
+.rec { font-family: var(--f-mono); font-size: 10px; letter-spacing: .07em; text-transform: uppercase; font-weight: 500; background: var(--ink); color: var(--bg); padding: 2px 7px; border-radius: 99px; }
+.alt { font-family: var(--f-mono); font-size: 10px; letter-spacing: .07em; text-transform: uppercase; font-weight: 500; color: var(--muted); border: 1px solid var(--rule); padding: 1px 7px; border-radius: 99px; }
+.dcard .parked-note { font-size: 12.5px; color: var(--muted); }
+
+/* figures */
+figure { margin: 0; display: grid; gap: 12px; min-width: 0; }
+.scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px; }
+.scroll svg { display: block; width: 100%; height: auto; }
+.arch svg { min-width: 860px; }
+.tl svg { min-width: 760px; }
+.bars svg { min-width: 560px; max-width: 760px; }
+figcaption { font-size: 13.5px; color: var(--muted); max-width: 72ch; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 13px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 7px; }
+.sw { width: 22px; height: 12px; border-radius: 3px; border: 2px solid; background: var(--surface); flex: none; }
+.sw.sys { border-color: var(--sys); }
+.sw.main { border-color: var(--main); }
+.sw.hw { border-color: var(--hw); }
+.sw.dash { border-style: dashed; border-color: var(--muted); }
+.hint { font-size: 12px; color: var(--muted); display: none; }
+
+/* svg drawing */
+.dg { color: var(--ink); font-family: var(--f-body); }
+.dg text { fill: var(--ink); font-size: 12px; }
+.dg .b { font-weight: 700; font-size: 13px; }
+.dg .m { fill: var(--muted); font-size: 11.5px; }
+.dg .mo { font-family: var(--f-mono); font-size: 11px; fill: var(--muted); }
+.dg .rl { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .08em; fill: var(--muted); }
+.dg .al { font-size: 11.5px; fill: var(--ink); }
+.dg .region { fill: var(--band); stroke: none; }
+.dg .box { fill: var(--surface); stroke-width: 2; }
+.dg .s-sys { stroke: var(--sys); }
+.dg .s-main { stroke: var(--main); }
+.dg .s-hw { stroke: var(--hw); }
+.dg .dash { stroke-dasharray: 5 4; }
+.dg .ln { stroke: var(--ink); stroke-width: 1.5; fill: none; }
+.dg .ln.d { stroke-dasharray: 5 4; }
+.dg .grid { stroke: var(--rule); stroke-width: 1; fill: none; }
+.dg .ms { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; fill: none; }
+.dg .lane { fill: var(--band); }
+.dg .bar-main { fill: var(--main); }
+.dg .bar-main-soft { fill: var(--main-soft); stroke: var(--main); stroke-width: 1.5; }
+.dg .bar-sys { fill: var(--sys); }
+.dg .bar-sys-soft { fill: var(--sys-soft); stroke: var(--sys); stroke-width: 1.5; }
+.dg .bar-n { fill: var(--band-2); }
+.dg .t-on-sys { fill: var(--on-sys); font-weight: 700; }
+.dg .t-on-main { fill: var(--on-main); font-weight: 700; }
+.dg .t-bar { font-weight: 700; }
+.dg .data-sys { fill: var(--sys); }
+.dg .data-n { fill: var(--hw); }
+.dg .cap { stroke: var(--ink); stroke-width: 1.5; fill: none; }
+.dg .cap.d { stroke-dasharray: 5 4; }
+
+/* contracts + storage options */
+.two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.note { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; display: grid; gap: 6px; min-width: 0; }
+.note h3 { font-size: 16px; }
+.note p { font-size: 14px; color: var(--muted); }
+.note .mono { color: var(--muted); }
+.math { font-family: var(--f-mono); font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 16px; font-variant-numeric: tabular-nums; }
+.opts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.opts .note { align-content: start; }
+.opts .note.lean { border-color: var(--sys); box-shadow: inset 0 0 0 1px var(--sys); }
+.opts .k { font-family: var(--f-mono); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.callout { border-left: 3px solid var(--open); padding: 4px 0 4px 14px; font-size: 14.5px; max-width: 70ch; }
+
+/* steps */
+.ladders { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; align-items: start; }
+.ladder { display: grid; gap: 14px; min-width: 0; }
+.ladder-hd { display: grid; gap: 2px; padding-bottom: 10px; border-bottom: 2px solid var(--lc); }
+.ladder-hd h3 { display: flex; align-items: center; gap: 10px; font-size: 20px; }
+.ladder-hd h3::before { content: ""; width: 20px; height: 6px; border-radius: 3px; background: var(--lc); flex: none; }
+.ladder-hd small { color: var(--muted); font-size: 13px; }
+.sys-l { --lc: var(--sys); --lc-ink: var(--sys-ink); }
+.main-l { --lc: var(--main); --lc-ink: var(--main-ink); }
+.grp { font-family: var(--f-mono); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--lc-ink); margin-top: 6px; }
+ol.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+ol.steps li { display: grid; grid-template-columns: 30px minmax(0, 1fr); gap: 0 10px; padding: 10px 0; border-bottom: 1px solid var(--rule); }
+ol.steps li:last-child { border-bottom: 0; }
+.n { font-family: var(--f-mono); font-size: 12px; color: var(--lc-ink); font-variant-numeric: tabular-nums; padding-top: 2px; }
+.st { display: grid; gap: 3px; min-width: 0; }
+.st b { font-size: 15px; line-height: 1.3; }
+.st span { font-size: 13.5px; color: var(--muted); }
+.st .done { font-size: 13px; color: var(--ink); }
+.st .done::before { content: "Done when "; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.gate { border: 1.5px dashed var(--open); border-radius: 10px; padding: 10px 12px; font-size: 13.5px; display: grid; gap: 2px; }
+.gate b { font-family: var(--f-mono); font-size: 11px; letter-spacing: .07em; text-transform: uppercase; color: var(--open); font-weight: 500; }
+.after { font-size: 13.5px; color: var(--muted); background: var(--band); border-radius: 10px; padding: 10px 12px; }
+
+.rules { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 18px; display: grid; gap: 10px; }
+.rules ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 14px; color: var(--muted); max-width: 80ch; }
+.rules ul b { color: var(--ink); }
+
+/* parked + week */
+.parked { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.parked li { border: 2px dashed var(--hw); border-radius: 99px; padding: 5px 13px; font-size: 14px; }
+.parked li small { color: var(--muted); font-size: 12.5px; }
+ol.week { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; counter-reset: w; max-width: 76ch; }
+ol.week li { counter-increment: w; display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 10px; font-size: 15px; }
+ol.week li::before { content: counter(w); font-family: var(--f-mono); font-size: 12px; color: var(--muted); padding-top: 3px; }
+ol.week li span { color: var(--muted); font-size: 14px; }
+
+footer { display: grid; gap: 8px; font-size: 13.5px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 18px; }
+footer .links { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+
+@media (max-width: 860px) {
+  .dgrid, .opts { grid-template-columns: minmax(0, 1fr); }
+  .ladders, .two { grid-template-columns: minmax(0, 1fr); }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .hint { display: block; }
+}
+@media (max-width: 420px) {
+  .wrap { gap: 44px; padding-block: 24px 40px; }
+  .facts { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">good-sleep · build plan · proposal · Sat 14 Nov 2026</p>
+  <h1>Good Sleep</h1>
+  <p class="lede">A sleep tracker I build end to end: optical and motion sensors, firmware in C, Bluetooth sync, a Python server, sleep analysis, and a dashboard on my iPhone. It runs inside the roadmap's existing slots, so the job search still starts Mon 1 Mar.</p>
+  <dl class="facts">
+    <div><dt>Parts</dt><dd>₹3,000–3,550<small>plus tools you keep</small></dd></div>
+    <div><dt>Languages</dt><dd>C + Python<small>no new language</small></dd></div>
+    <div><dt>Slots</dt><dd>Main (Dec) + Sun 2nd block<small>everything else unchanged</small></dd></div>
+    <div><dt>First full night synced</dt><dd>Target: end of Feb<small>an estimate</small></dd></div>
+  </dl>
+  <div class="status">
+    <span class="pill open">3 decisions open</span>
+    <span class="pill open">1 design question</span>
+    <span class="pill">Parts: to order</span>
+  </div>
+  <nav class="nav" aria-label="Sections">
+    <a href="#decisions">Decisions</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#storage">Storage question</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#steps">Step by step</a>
+    <a href="#parked">Parked</a>
+    <a href="#week">This week</a>
+  </nav>
+</header>
+
+<section class="sec" id="decisions">
+  <div class="sec-hd">
+    <h2>Decide first</h2>
+    <p class="lede">These are yours to choose. The rest of the page assumes the recommended option in each card, so it changes if you pick the other one.</p>
+  </div>
+  <div class="dgrid">
+    <article class="dcard">
+      <p class="eyebrow">Decision 1</p>
+      <h3>How does it fit the roadmap?</h3>
+      <div class="opt">
+        <b>Inside existing slots <span class="rec">Recommended</span></b>
+        <p>The server and analysis become the Python phase's own project. The firmware takes Sunday's second Systems block. Mon 1 Mar doesn't move.</p>
+      </div>
+      <div class="opt">
+        <b>Replace the roadmap <span class="alt">Alternative</span></b>
+        <p>More hours for the tracker, but it eats the Rust phase and job-search prep. This is the switch-and-restart pattern your rules warn about.</p>
+      </div>
+    </article>
+    <article class="dcard">
+      <p class="eyebrow">Decision 2</p>
+      <h3>Firmware language and framework</h3>
+      <div class="opt">
+        <b>C on Zephyr <span class="rec">Recommended</span></b>
+        <p>The same C you study in King and CS:APP. Real threads, interrupts, power saving and Bluetooth. Zephyr supports the XIAO and the MAX30101 out of the box.</p>
+      </div>
+      <div class="opt">
+        <b>C++ on Arduino <span class="alt">Alternative</span></b>
+        <p>First pulse wave in one evening, but libraries hide the systems part, and low power probably means a rewrite later.</p>
+      </div>
+      <p class="parked-note">Rust (Embassy) is parked until after landing. Zig has no mature Bluetooth stack for this chip.</p>
+    </article>
+    <article class="dcard">
+      <p class="eyebrow">Decision 3</p>
+      <h3>How does a night reach your phone?</h3>
+      <div class="opt">
+        <b>Mac syncs, iPhone views <span class="rec">Recommended</span></b>
+        <p>A Python script on the MacBook downloads the night over Bluetooth and uploads it. The dashboard is a web page saved to your Home Screen.</p>
+      </div>
+      <div class="opt">
+        <b>Native iPhone app <span class="alt">Alternative</span></b>
+        <p>Safari on iPhone can't connect to Bluetooth devices, so syncing from the phone means Swift, a fifth language. Parked until Mac syncing becomes a real annoyance.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="sec" id="architecture">
+  <div class="sec-hd">
+    <h2>How a night travels</h2>
+    <p class="lede">Sensors feed the board all night. In the morning the Mac pulls the night over Bluetooth and uploads it unchanged. The server stores it, analyses it in a background job, and serves the charts.</p>
+  </div>
+  <figure class="arch">
+    <div class="scroll">
+      <svg class="dg" viewBox="0 0 1080 410" role="img" aria-label="Data path: MAX30101 and IMU feed the nRF52840 over I2C; it writes a log to flash; each morning the Mac sync script downloads it over Bluetooth and uploads it over HTTPS to the FastAPI server, which stores it in PostgreSQL and queues an analysis job; the iPhone views the dashboard pages; the analysis job may send aggregates to OpenRouter.">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+          </marker>
+        </defs>
+
+        <!-- regions -->
+        <rect class="region" x="16" y="20" width="284" height="380" rx="12"/>
+        <text class="rl" x="30" y="42">ON YOUR WRIST</text>
+        <rect class="region" x="364" y="20" width="150" height="176" rx="12"/>
+        <text class="rl" x="378" y="42">MACBOOK</text>
+        <rect class="region" x="364" y="256" width="150" height="124" rx="12"/>
+        <text class="rl" x="378" y="278">IPHONE</text>
+        <rect class="region" x="578" y="20" width="360" height="290" rx="12"/>
+        <text class="rl" x="592" y="42">YOUR SERVER</text>
+
+        <!-- device -->
+        <rect class="box s-hw" x="28" y="76" width="108" height="56" rx="8"/>
+        <text class="b" x="82" y="100" text-anchor="middle">MAX30101</text>
+        <text class="m" x="82" y="118" text-anchor="middle">green · red · IR</text>
+
+        <rect class="box s-hw" x="28" y="148" width="108" height="56" rx="8"/>
+        <text class="b" x="82" y="172" text-anchor="middle">IMU</text>
+        <text class="m" x="82" y="190" text-anchor="middle">accelerometer</text>
+
+        <rect class="box s-sys" x="180" y="76" width="108" height="110" rx="8"/>
+        <text class="b" x="234" y="104" text-anchor="middle">nRF52840</text>
+        <text class="m" x="234" y="124" text-anchor="middle">your firmware</text>
+        <text class="mo" x="234" y="144" text-anchor="middle">C · Zephyr</text>
+
+        <line class="ln" x1="136" y1="104" x2="178" y2="104" marker-end="url(#ah)"/>
+        <text class="al" x="157" y="97" text-anchor="middle">I2C</text>
+        <line class="ln" x1="136" y1="170" x2="178" y2="170" marker-end="url(#ah)"/>
+        <text class="al" x="157" y="163" text-anchor="middle">I2C</text>
+
+        <rect class="box s-sys" x="180" y="240" width="108" height="52" rx="8"/>
+        <text class="b" x="234" y="262" text-anchor="middle">flash log</text>
+        <text class="m" x="234" y="280" text-anchor="middle">2 MB onboard</text>
+        <line class="ln" x1="234" y1="186" x2="234" y2="238" marker-end="url(#ah)"/>
+        <text class="al" x="226" y="218" text-anchor="end">writes all night</text>
+
+        <rect class="box s-sys dash" x="180" y="330" width="108" height="52" rx="8"/>
+        <text class="b" x="234" y="352" text-anchor="middle">16 MB chip?</text>
+        <text class="m" x="234" y="370" text-anchor="middle">open question</text>
+        <line class="ln d" x1="234" y1="292" x2="234" y2="328"/>
+        <text class="al" x="226" y="315" text-anchor="end">if raw nights</text>
+
+        <!-- device <-> mac -->
+        <line class="ln" x1="288" y1="112" x2="374" y2="112" marker-end="url(#ah)"/>
+        <text class="al" x="331" y="104" text-anchor="middle">Bluetooth</text>
+        <line class="ln d" x1="376" y1="146" x2="290" y2="146" marker-end="url(#ah)"/>
+        <text class="al" x="331" y="163" text-anchor="middle">sets clock</text>
+
+        <rect class="box s-sys" x="376" y="76" width="126" height="92" rx="8"/>
+        <text class="b" x="439" y="102" text-anchor="middle">sync script</text>
+        <text class="mo" x="439" y="122" text-anchor="middle">Python · bleak</text>
+        <text class="m" x="439" y="142" text-anchor="middle">each morning</text>
+
+        <!-- mac -> server -->
+        <line class="ln" x1="502" y1="112" x2="588" y2="112" marker-end="url(#ah)"/>
+        <text class="al" x="545" y="104" text-anchor="middle">HTTPS upload</text>
+
+        <rect class="box s-main" x="590" y="76" width="120" height="92" rx="8"/>
+        <text class="b" x="650" y="102" text-anchor="middle">API</text>
+        <text class="mo" x="650" y="122" text-anchor="middle">FastAPI</text>
+        <text class="m" x="650" y="142" text-anchor="middle">upload · login</text>
+
+        <line class="ln" x1="710" y1="112" x2="804" y2="112" marker-end="url(#ah)"/>
+        <text class="al" x="757" y="104" text-anchor="middle">queues job</text>
+
+        <rect class="box s-main" x="806" y="76" width="120" height="92" rx="8"/>
+        <text class="b" x="866" y="102" text-anchor="middle">analysis job</text>
+        <text class="mo" x="866" y="122" text-anchor="middle">Python · numpy</text>
+        <text class="m" x="866" y="142" text-anchor="middle">epochs · HR · sleep</text>
+
+        <rect class="box s-main" x="590" y="236" width="170" height="56" rx="8"/>
+        <text class="b" x="675" y="259" text-anchor="middle">PostgreSQL</text>
+        <text class="m" x="675" y="277" text-anchor="middle">nights · metrics</text>
+
+        <line class="ln" x1="650" y1="168" x2="650" y2="234" marker-end="url(#ah)"/>
+        <text class="al" x="658" y="205">stores night</text>
+        <line class="ln" x1="822" y1="168" x2="752" y2="234" marker-end="url(#ah)"/>
+        <text class="al" x="800" y="216">metrics</text>
+
+        <!-- outside service -->
+        <rect class="box s-hw dash" x="806" y="336" width="120" height="52" rx="8"/>
+        <text class="b" x="866" y="358" text-anchor="middle">OpenRouter</text>
+        <text class="m" x="866" y="376" text-anchor="middle">LLM, optional</text>
+        <line class="ln d" x1="866" y1="168" x2="866" y2="334" marker-end="url(#ah)"/>
+        <text class="al" x="874" y="258">aggregates</text>
+        <text class="al" x="874" y="273">only</text>
+
+        <!-- server -> iphone -->
+        <rect class="box s-main" x="376" y="296" width="126" height="64" rx="8"/>
+        <text class="b" x="439" y="322" text-anchor="middle">web dashboard</text>
+        <text class="m" x="439" y="341" text-anchor="middle">Home Screen</text>
+        <polyline class="ln" points="590,150 546,150 546,328 504,328" marker-end="url(#ah)"/>
+        <text class="al" x="540" y="232" text-anchor="end">pages</text>
+      </svg>
+    </div>
+    <p class="hint">Scroll sideways to see the whole diagram.</p>
+    <div class="legend" aria-label="Legend">
+      <span><i class="sw sys"></i>Built in the Systems slot</span>
+      <span><i class="sw main"></i>Built in the Main slot</span>
+      <span><i class="sw hw"></i>Parts you buy, or outside services</span>
+      <span><i class="sw dash"></i>Optional or still open</span>
+    </div>
+    <figcaption>The sync script uploads the night file unchanged, so the server decodes the same bytes the firmware wrote. Only computed numbers ever go to the LLM, never raw recordings.</figcaption>
+  </figure>
+
+  <div class="two">
+    <div class="note">
+      <p class="mono">Contract 1 · docs/, versioned</p>
+      <h3>Log format and Bluetooth protocol</h3>
+      <p>Between the firmware and the sync script. You write it before either end exists: sample layout, timestamps, header, chunking, checksum. Changing it later needs a new version number.</p>
+    </div>
+    <div class="note">
+      <p class="mono">Contract 2 · docs/</p>
+      <h3>Upload API</h3>
+      <p>Between the sync script and the server: one endpoint that takes a night file, plus login. Small on purpose, so the sync script stays dumb.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="storage">
+  <div class="sec-hd">
+    <p class="eyebrow" style="color: var(--open)">Design question · settle it in your log-format doc</p>
+    <h2>Where do raw nights fit?</h2>
+    <p class="lede">The brief says to buffer the whole night in the board's flash. At the brief's sample rates one night is about 17 MB, and the board holds 2 MB. For 8 hours, 2 MB allows about 73 bytes a second.</p>
+  </div>
+  <figure class="bars">
+    <div class="scroll">
+      <svg class="dg" viewBox="0 0 700 210" role="img" aria-label="Night size versus storage: brief as written 17.3 MB, lean raw 13.0 MB, features only 0.1 MB. Onboard flash is 2 MB; a 16 MB chip holds lean raw but not the brief as written.">
+        <!-- scale: 0 MB at x=190, 23.89 px per MB -->
+        <line class="grid" x1="190" y1="40" x2="190" y2="170"/>
+        <line class="grid" x1="285.6" y1="40" x2="285.6" y2="170"/>
+        <line class="grid" x1="381.1" y1="40" x2="381.1" y2="170"/>
+        <line class="grid" x1="476.7" y1="40" x2="476.7" y2="170"/>
+        <line class="grid" x1="572.2" y1="40" x2="572.2" y2="170"/>
+        <text class="mo" x="190" y="188" text-anchor="middle">0</text>
+        <text class="mo" x="285.6" y="188" text-anchor="middle">4</text>
+        <text class="mo" x="381.1" y="188" text-anchor="middle">8</text>
+        <text class="mo" x="476.7" y="188" text-anchor="middle">12</text>
+        <text class="mo" x="572.2" y="188" text-anchor="middle">16 MB</text>
+
+        <text class="b" x="178" y="62" text-anchor="end">Brief as written</text>
+        <text class="mo" x="178" y="78" text-anchor="end">3 colours, 50 Hz</text>
+        <rect class="data-n" x="190" y="54" width="412.8" height="24" rx="3"/>
+        <text class="al" x="608.8" y="71">17.3 MB</text>
+
+        <text class="b" x="178" y="108" text-anchor="end">Lean raw</text>
+        <text class="mo" x="178" y="124" text-anchor="end">green + IR, 50 Hz</text>
+        <rect class="data-sys" x="190" y="100" width="309.6" height="24" rx="3"/>
+        <text class="al" x="505.6" y="117">13.0 MB</text>
+
+        <text class="b" x="178" y="154" text-anchor="end">Features only</text>
+        <text class="mo" x="178" y="170" text-anchor="end">beats + motion</text>
+        <rect class="data-n" x="190" y="146" width="3" height="24" rx="1"/>
+        <text class="al" x="199" y="163">0.1 MB</text>
+
+        <line class="cap" x1="240.1" y1="36" x2="240.1" y2="176"/>
+        <text class="al" x="240.1" y="28" text-anchor="middle">onboard 2 MB</text>
+        <line class="cap d" x1="590.8" y1="36" x2="590.8" y2="176"/>
+        <text class="al" x="590.8" y="28" text-anchor="middle">16 MB chip</text>
+      </svg>
+    </div>
+    <div class="math" aria-label="How the numbers were worked out">
+      <span>8 h = 28,800 s</span>
+      <span>PPG: 3 bytes per colour per sample</span>
+      <span>accel 25 Hz × 3 axes × 2 B = 150 B/s (top two bars)</span>
+      <span>2 MB ÷ 28,800 s ≈ 73 B/s</span>
+    </div>
+    <figcaption>Lean raw drops the red LED, so it can't estimate SpO2. That fits the plan, since SpO2 is parked anyway.</figcaption>
+  </figure>
+  <div class="opts">
+    <div class="note lean">
+      <p class="k">A · add a chip <span class="rec">Lean</span></p>
+      <h3>16 MB SPI flash module</h3>
+      <p>Lean raw fits, so you keep the raw signal your algorithm learns from. Costs a few more wires, a flash driver to write (good C practice), and a longer morning download. About ₹150–300 (estimate).</p>
+    </div>
+    <div class="note">
+      <p class="k">B · compress</p>
+      <h3>Delta + varint encoding</h3>
+      <p>Store each sample as its difference from the last, packed as a varint, which is exactly your CS Primer exercise. It might squeeze green-only into 2 MB, but you won't know until you measure your own signal.</p>
+    </div>
+    <div class="note">
+      <p class="k">C · features only</p>
+      <h3>Beat times + motion per second</h3>
+      <p>About 0.1 MB a night, so it fits easily. But it throws away the raw signal you need to improve beat detection and staging later.</p>
+    </div>
+  </div>
+  <p class="callout">Lean: A while developing. B and C make good systems exercises once raw nights work. It changes the data format, so it's your call.</p>
+</section>
+
+<section class="sec" id="timeline">
+  <div class="sec-hd">
+    <h2>On the roadmap</h2>
+    <p class="lede">Only two slots change: the Python phase's own project, and Sunday's second Systems block once the parts arrive. DSA, Reading, King, CS:APP and Zig keep their slots.</p>
+  </div>
+  <figure class="tl">
+    <div class="scroll">
+      <svg class="dg" viewBox="0 0 900 240" role="img" aria-label="Timeline 14 Nov 2026 to 31 Mar 2027. Main slot: Python course to 6 Dec, sleep backend 7 Dec to 3 Jan, then Rust to 28 Feb, job search from 1 Mar. Systems Sunday block: CS Primer until parts arrive, bench prototype late Nov to 2 Jan, overnight firmware and sync 3 Jan to 28 Feb, case and wear tests in March.">
+        <!-- scale: 14 Nov at x=130, 5.4745 px per day -->
+        <text class="rl" x="176.6" y="22" text-anchor="middle">NOV</text>
+        <text class="rl" x="308" y="22" text-anchor="middle">DEC</text>
+        <text class="rl" x="477.7" y="22" text-anchor="middle">JAN</text>
+        <text class="rl" x="639.2" y="22" text-anchor="middle">FEB</text>
+        <text class="rl" x="797.9" y="22" text-anchor="middle">MAR</text>
+
+        <rect class="lane" x="0" y="40" width="900" height="52" rx="6"/>
+        <rect class="lane" x="0" y="100" width="900" height="52" rx="6"/>
+        <text class="b" x="12" y="63">Main focus</text>
+        <text class="m" x="12" y="80">weekdays 5:45</text>
+        <text class="b" x="12" y="123">Systems</text>
+        <text class="m" x="12" y="140">Sun 2nd block</text>
+
+        <line class="grid" x1="223.1" y1="32" x2="223.1" y2="160"/>
+        <line class="grid" x1="392.8" y1="32" x2="392.8" y2="160"/>
+        <line class="grid" x1="562.5" y1="32" x2="562.5" y2="160"/>
+        <line class="grid" x1="715.8" y1="32" x2="715.8" y2="160"/>
+
+        <!-- milestones: row A (21 Nov, 20 Dec, 17 Jan), row B (6 Dec, 3 Jan, 1 Mar) -->
+        <line class="ms" x1="168.3" y1="40" x2="168.3" y2="168"/>
+        <line class="ms" x1="327.1" y1="40" x2="327.1" y2="168"/>
+        <line class="ms" x1="480.4" y1="40" x2="480.4" y2="168"/>
+        <line class="ms" x1="250.4" y1="40" x2="250.4" y2="202"/>
+        <line class="ms" x1="403.7" y1="40" x2="403.7" y2="202"/>
+        <line class="ms" x1="715.8" y1="40" x2="715.8" y2="202"/>
+
+        <!-- main lane -->
+        <rect class="bar-main-soft" x="130" y="50" width="120.4" height="32" rx="5"/>
+        <text class="t-bar" x="138" y="70">Python course</text>
+        <rect class="bar-main" x="255.9" y="50" width="147.8" height="32" rx="5"/>
+        <text class="t-on-main" x="263.9" y="70">Sleep backend</text>
+        <rect class="bar-n" x="409.2" y="50" width="301.1" height="32" rx="5"/>
+        <text class="t-bar" x="417.2" y="70">Rust: refresh, then Zero To Production</text>
+        <rect class="bar-n" x="715.8" y="50" width="164.2" height="32" rx="5"/>
+        <text class="t-bar" x="723.8" y="70">Job search</text>
+
+        <!-- systems lane -->
+        <rect class="bar-n" x="130" y="110" width="82.1" height="32" rx="5"/>
+        <text class="t-bar" x="138" y="130">CS Primer</text>
+        <rect class="bar-sys" x="212.1" y="110" width="186.2" height="32" rx="5"/>
+        <text class="t-on-sys" x="220.1" y="130">Bench prototype</text>
+        <rect class="bar-sys" x="403.7" y="110" width="306.6" height="32" rx="5"/>
+        <text class="t-on-sys" x="411.7" y="130">Overnight firmware + sync → 8 h</text>
+        <rect class="bar-sys-soft" x="715.8" y="110" width="164.2" height="32" rx="5"/>
+        <text class="t-bar" x="723.8" y="130">Case + wear tests</text>
+
+        <!-- milestone labels -->
+        <text class="mo" x="168.3" y="182" text-anchor="middle">Sat 21 Nov</text>
+        <text class="al" x="168.3" y="196" text-anchor="middle">design sketch</text>
+        <text class="mo" x="327.1" y="182" text-anchor="middle">~Sun 20 Dec</text>
+        <text class="al" x="327.1" y="196" text-anchor="middle">King 16–17 done</text>
+        <text class="mo" x="480.4" y="182" text-anchor="middle">Sun 17 Jan</text>
+        <text class="al" x="480.4" y="196" text-anchor="middle">hard stop</text>
+        <text class="mo" x="250.4" y="216" text-anchor="middle">Sun 6 Dec</text>
+        <text class="al" x="250.4" y="230" text-anchor="middle">course done</text>
+        <text class="mo" x="403.7" y="216" text-anchor="middle">Sun 3 Jan</text>
+        <text class="al" x="403.7" y="230" text-anchor="middle">checkpoint</text>
+        <text class="mo" x="715.8" y="216" text-anchor="middle">Mon 1 Mar</text>
+        <text class="al" x="715.8" y="230" text-anchor="middle">job search starts</text>
+      </svg>
+    </div>
+    <p class="hint">Scroll sideways to see the whole timeline.</p>
+    <figcaption>Coloured bars are this project; grey bars are the roadmap as it stands. The bench prototype's recordings become the backend's test files. If the backend misses the 3 Jan checkpoint it can run to the 17 Jan hard stop, and Rust then starts 18 Jan. The parts' arrival date is an estimate.</figcaption>
+  </figure>
+</section>
+
+<section class="sec" id="steps">
+  <div class="sec-hd">
+    <h2>Step by step</h2>
+    <p class="lede">Each step teaches one thing and ends with something you can see. Don't start a step until the one before it is done.</p>
+  </div>
+  <div class="ladders">
+    <div class="ladder sys-l">
+      <div class="ladder-hd">
+        <h3>Firmware</h3>
+        <small>Systems slot · Sun 2nd block, 2h · from when the parts arrive</small>
+      </div>
+      <p class="grp">Bench prototype · Phase 1 · Dec</p>
+      <ol class="steps">
+        <li><span class="n">0</span><div class="st"><b>Build blinky for your board</b><span>Toolchain and the build loop, on the Mac, before the parts arrive.</span><span class="done">it compiles</span></div></li>
+        <li><span class="n">1</span><div class="st"><b>Blinky on the board</b><span>GPIO, and flashing by copying a file over USB. No debugger needed.</span><span class="done">the LED blinks</span></div></li>
+        <li><span class="n">2</span><div class="st"><b>Print over USB serial</b><span>Logging: your debugger for the next few months.</span><span class="done">text appears on the Mac</span></div></li>
+        <li><span class="n">3</span><div class="st"><b>Read the onboard IMU</b><span>I2C, devicetree, Zephyr's sensor API.</span><span class="done">numbers change when you tilt it</span></div></li>
+        <li><span class="n">4</span><div class="st"><b>Your own MAX30101 driver</b><span>Reading a datasheet, register reads and writes, 3 bytes into an 18-bit sample (CS:APP ch 2 in practice). Write it by hand.</span><span class="done">part ID reads 0x15, then live samples</span></div></li>
+        <li><span class="n">5</span><div class="st"><b>Stream and plot in Python</b><span>Fixed-rate timing and a first look at the real signal. Fingertip first, then wrist.</span><span class="done">clean pulse wave, HR close to your oximeter</span></div></li>
+      </ol>
+      <div class="gate"><b>Gate · about Sun 20 Dec</b>King ch 16–17 (structs, malloc) done. The logger is built from structs and pointers.</div>
+      <p class="grp">Overnight firmware · Phase 2 · Jan–Feb</p>
+      <ol class="steps">
+        <li><span class="n">6</span><div class="st"><b>Sample at a fixed rate</b><span>Timers and the sensor's FIFO interrupt.</span><span class="done">10 minutes with no dropped samples</span></div></li>
+        <li><span class="n">7</span><div class="st"><b>Ring buffer</b><span>Plain C with unit tests that run on the Mac.</span><span class="done">tests pass, including wrap-around</span></div></li>
+        <li><span class="n">8</span><div class="st"><b>Log format v0.1</b><span>Your spec in docs/. C writes it, Python reads it.</span><span class="done">both read the same test file identically</span></div></li>
+        <li><span class="n">9</span><div class="st"><b>Write nights to flash</b><span>Flash storage that survives resets and a flat battery.</span><span class="done">a recording reads back after power-off</span></div></li>
+        <li><span class="n">10</span><div class="st"><b>Bluetooth download + Mac sync script</b><span>A custom GATT service, chunked transfer, bleak on the Mac. The Mac also sets the board's clock.</span><span class="done">a whole night downloads and the checksum matches</span></div></li>
+        <li><span class="n">11</span><div class="st"><b>Low power</b><span>Sleep between samples; measure the current draw.</span><span class="done">8 hours on one charge</span></div></li>
+      </ol>
+      <p class="after">March, at the roadmap's lighter pace: printed case, light barrier, strap, wear tests (Phase 4).</p>
+    </div>
+
+    <div class="ladder main-l">
+      <div class="ladder-hd">
+        <h3>Server and analysis</h3>
+        <small>Main slot · weekdays 5:45–7:45 · Sat 5:45–10:00</small>
+      </div>
+      <p class="grp">Course · now → Sun 6 Dec</p>
+      <ol class="steps">
+        <li><span class="n">1</span><div class="st"><b>Finish Python for Professional Developers</b><span>FastAPI, PostgreSQL, SQLModel, Alembic, pytest, JWT, Docker: the exact stack your server uses.</span><span class="done">milestone Sun 6 Dec</span></div></li>
+        <li><span class="n">2</span><div class="st"><b>Write your design page</b><span>Data model, API shape and boundaries, in your own words, before any code.</span><span class="done">sketch by Sat 21 Nov, full version before step 3</span></div></li>
+      </ol>
+      <p class="grp">Sleep backend · Phases 3 + 5 basics · 7 Dec → 3 Jan</p>
+      <ol class="steps">
+        <li><span class="n">3</span><div class="st"><b>Project skeleton</b><span>The course stack from scratch, plus CI.</span><span class="done">tests run on every push</span></div></li>
+        <li><span class="n">4</span><div class="st"><b>Upload a night</b><span>One endpoint takes a v0.1 log file. Synthetic files now, bench recordings once you have them.</span><span class="done">the file is stored and decoded</span></div></li>
+        <li><span class="n">5</span><div class="st"><b>Analysis job on a queue</b><span>30-second epochs, movement, Cole-Kripke sleep/wake from motion.</span><span class="done">tests pass on synthetic nights</span></div></li>
+        <li><span class="n">6</span><div class="st"><b>Heart rate</b><span>Beat detection in the green signal, mean and resting HR. RMSSD (HRV) if time allows.</span><span class="done">within a few bpm of the oximeter on bench data</span></div></li>
+        <li><span class="n">7</span><div class="st"><b>Dashboard</b><span>Sleep/wake chart, HR and movement, total sleep time, time to fall asleep, sleep efficiency, wake after sleep onset. All labelled as estimates.</span><span class="done">it opens from your Home Screen</span></div></li>
+        <li><span class="n">8</span><div class="st"><b>Login and deploy</b><span>JWT login, because it's your health data. Deployed with Docker.</span><span class="done">a live URL</span></div></li>
+        <li><span class="n">9</span><div class="st"><b>Explain last night</b><span>The roadmap's one LLM feature: OpenRouter, computed numbers only, mocked client in tests.</span><span class="done">a summary appears for a night</span></div></li>
+        <li><span class="n">10</span><div class="st"><b>README with Decisions</b><span>What you chose, the alternatives, and where you overruled me.</span><span class="done">checkpoint Sun 3 Jan · hard stop Sun 17 Jan</span></div></li>
+      </ol>
+      <p class="after">Jan–Feb: this slot goes to Rust (Zero To Production). Real nights reach the server through the sync script from firmware step 10, so the server needs no more main-slot time.</p>
+    </div>
+  </div>
+
+  <div class="rules">
+    <h3>How we build it</h3>
+    <ul>
+      <li><b>You design, I write.</b> You write the data model, API and log format first. I write code to them, you review every diff, and a line you can't explain doesn't go in.</li>
+      <li><b>First version by hand.</b> Each new concept (your MAX30101 driver, the first endpoint) is yours to type. I do the repetitive variants after.</li>
+      <li><b>Analysis code ships with tests.</b> Fixtures are small synthetic files in analysis/tests/fixtures/.</li>
+      <li><b>Your recordings stay private.</b> Real nights never go in git; data/ is git-ignored. Keys live in environment variables.</li>
+      <li><b>Cloud sessions can't reach the board.</b> There, firmware only has to compile. Flashing and Bluetooth tests happen on your Mac.</li>
+      <li><b>Not a medical device.</b> Sleep stages and SpO2 are always labelled as estimates.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="sec" id="parked">
+  <div class="sec-hd">
+    <h2>Parked until after landing</h2>
+    <p class="lede">Good ideas, none of them now. They go to the Plan board's "Someday · after landing" column.</p>
+  </div>
+  <ul class="parked">
+    <li>Native iPhone app <small>Swift</small></li>
+    <li>Sleep stages <small>wake, light, deep, REM from PhysioNet data</small></li>
+    <li>SpO2 estimates <small>needs the red LED recorded</small></li>
+    <li>Rust firmware port <small>Embassy</small></li>
+    <li>Custom PCB <small>KiCad, JLCPCB</small></li>
+    <li>Skin temperature <small>MAX30205</small></li>
+    <li>Reading the old oximeter over Bluetooth</li>
+  </ul>
+</section>
+
+<section class="sec" id="week">
+  <div class="sec-hd">
+    <h2>This week</h2>
+  </div>
+  <ol class="week">
+    <li><div>Order parts 1–10 from the build plan (₹4.7–8.7k). <span>Skip the oximeter, since you have one. The XIAO and MAX30101 were sold out at some shops, so check Robu, Robocraze and TNTE. If you lean toward raw nights, add a 16 MB SPI flash module to the same order.</span></div></li>
+    <li><div>Check your oximeter. <span>Fresh batteries, then a 60-second pulse count while sitting still. Within about ±3 bpm means it's a usable reference.</span></div></li>
+    <li><div>Keep going with the course in the Main slot. <span>It now teaches you how to build your own server.</span></div></li>
+    <li><div>Sat 21 Nov: a 15-minute design sketch. <span>What the device records, what the server stores, what the dashboard shows.</span></div></li>
+    <li><div>Sunday stays King + CS Primer until the parts arrive.</div></li>
+    <li><div>Answer the three decisions and the storage question.</div></li>
+  </ol>
+</section>
+
+<footer>
+  <div class="links">
+    <a href="https://claude.ai/artifact/X8z2KFZJ2zPk3WX2EABFsM" target="_blank" rel="noopener">Build plan and costs</a>
+    <a href="https://claude.ai/artifact/Dy6AnZyAdLZiAciUmXjPg5" target="_blank" rel="noopener">Learning roadmap</a>
+  </div>
+  <p>Not a medical device. Sleep stages, heart rate variability and SpO2 from this tracker are estimates.</p>
+</footer>
+
+</div>
