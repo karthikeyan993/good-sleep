@@ -1,0 +1,605 @@
+<title>Good Sleep Band</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: a product-viewer page. A large 3D stage with controls under it, then a to-scale cross-section and three short notes. Same type and colours as the other Good Sleep pages. */
+:root {
+  --bg: #f5f5f0;
+  --surface: #ffffff;
+  --stage: #e6e7df;
+  --ink: #1a201c;
+  --muted: #5e675f;
+  --rule: #d3d6cd;
+  --accent: #8a5cc2;
+  --c-case: #ddd7ca;
+  --c-case-edge: #a59e8c;
+  --c-pcb: #1f5a45;
+  --c-pcb-b: #1b1d20;
+  --c-batt: #c4c8cd;
+  --c-metal: #9aa1a8;
+  --c-chip: #2a2d31;
+  --c-glass: #bfe0ea;
+  --c-strap: #2d3b57;
+  --c-skin: #d9b597;
+  --f-display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #131714; --surface: #1b201c; --stage: #20261f; --ink: #e5e9e2; --muted: #9aa39a; --rule: #353d36; --accent: #b28fe3;
+    --c-case: #6a6f75; --c-case-edge: #9aa0a6; --c-pcb: #2f7a5f; --c-pcb-b: #3b3f45; --c-batt: #9ba1a7; --c-metal: #b8bec4;
+    --c-chip: #5a5e64; --c-glass: #7fb3c4; --c-strap: #6c80a8; --c-skin: #8c6b55;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #131714; --surface: #1b201c; --stage: #20261f; --ink: #e5e9e2; --muted: #9aa39a; --rule: #353d36; --accent: #b28fe3;
+  --c-case: #6a6f75; --c-case-edge: #9aa0a6; --c-pcb: #2f7a5f; --c-pcb-b: #3b3f45; --c-batt: #9ba1a7; --c-metal: #b8bec4;
+  --c-chip: #5a5e64; --c-glass: #7fb3c4; --c-strap: #6c80a8; --c-skin: #8c6b55;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.5; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-color: var(--rule); }
+.wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 32px 56px;
+  display: grid; gap: 44px;
+}
+.eyebrow { font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 800; letter-spacing: -.015em; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(40px, 7vw, 64px); line-height: .95; }
+h2 { font-size: clamp(22px, 3vw, 28px); line-height: 1.1; }
+h3 { font-size: 17px; }
+p { margin: 0; }
+.lede { font-size: 16.5px; color: var(--muted); max-width: 66ch; }
+.top { display: grid; gap: 14px; }
+
+/* viewer */
+.viewer { display: grid; gap: 12px; min-width: 0; }
+.stage { position: relative; height: clamp(340px, 56vw, 560px); background: var(--stage); border-radius: 16px; overflow: hidden; }
+.stage canvas { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; outline: none; }
+.stage canvas:active { cursor: grabbing; }
+.stage canvas:focus-visible { box-shadow: inset 0 0 0 2px var(--accent); }
+.labels { position: absolute; inset: 0; pointer-events: none; }
+.lbl { position: absolute; left: 0; top: 0; display: flex; align-items: center; gap: 6px; white-space: nowrap; font-size: 12.5px; font-weight: 700; color: var(--ink); will-change: transform; }
+.lbl i { width: 9px; height: 9px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--stage); flex: none; margin-left: -4.5px; margin-top: -4.5px; }
+.lbl span { background: var(--surface); border: 1px solid var(--rule); padding: 2px 8px; border-radius: 99px; margin-top: -4.5px; }
+.lbl.flip { flex-direction: row-reverse; }
+.lbl.flip i { margin-left: 0; margin-right: -4.5px; }
+.lbl.flip { transform-origin: right center; }
+.nogl { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; color: var(--muted); }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.seg { display: inline-flex; background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 3px; gap: 2px; flex-wrap: wrap; }
+.seg button { font: inherit; font-size: 13.5px; color: var(--muted); background: none; border: 0; border-radius: 7px; padding: 6px 11px; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+.seg button:focus-visible, .sw:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.swatches { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted); }
+.sw { width: 24px; height: 24px; border-radius: 50%; border: 2px solid var(--rule); cursor: pointer; padding: 0; }
+.sw[aria-pressed="true"] { border-color: var(--ink); box-shadow: 0 0 0 2px var(--bg) inset; }
+.toggles { display: inline-flex; gap: 14px; font-size: 13.5px; color: var(--muted); }
+.toggles label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+.hint { font-size: 12.5px; color: var(--muted); }
+
+.facts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; margin: 0; }
+.facts div { background: var(--surface); padding: 12px 14px; display: grid; gap: 2px; min-width: 0; }
+.facts dt { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 0; font-weight: 700; font-size: 15px; line-height: 1.3; font-variant-numeric: tabular-nums; }
+.facts dd small { display: block; font-weight: 400; color: var(--muted); font-size: 12.5px; }
+
+/* cross-section */
+.sec { display: grid; gap: 16px; min-width: 0; }
+figure { margin: 0; display: grid; gap: 10px; min-width: 0; }
+.scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 14px; }
+.scroll svg { display: block; width: 100%; min-width: 760px; height: auto; }
+figcaption { font-size: 13.5px; color: var(--muted); max-width: 74ch; }
+.xs text { font-family: var(--f-body); font-size: 12px; fill: var(--ink); }
+.xs .m { fill: var(--muted); }
+.xs .mo { font-family: var(--f-mono); font-size: 11px; fill: var(--muted); }
+.xs .num { font-size: 10.5px; font-weight: 700; fill: var(--bg); }
+.xs .dim { stroke: var(--muted); stroke-width: 1; fill: none; }
+.xs .case { fill: var(--c-case); stroke: var(--c-case-edge); stroke-width: 1; }
+.xs .pcb { fill: var(--c-pcb); }
+.xs .pcbb { fill: var(--c-pcb-b); }
+.xs .batt { fill: var(--c-batt); }
+.xs .metal { fill: var(--c-metal); }
+.xs .chip { fill: var(--c-chip); }
+.xs .glass { fill: var(--c-glass); }
+.xs .bar { fill: var(--c-chip); }
+.xs .cap { fill: #b88a55; }
+.xs .strap { stroke: var(--c-strap); stroke-width: 16; fill: none; stroke-linecap: round; }
+.xs .skin { fill: var(--c-skin); opacity: .35; }
+.xs .skinline { stroke: var(--c-skin); stroke-width: 2; fill: none; }
+.xs .mk { fill: var(--ink); }
+
+.notes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.note { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.note ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 14px; color: var(--muted); }
+footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--rule); padding-top: 16px; display: flex; flex-wrap: wrap; gap: 6px 16px; }
+
+@media (max-width: 860px) {
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .notes { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 420px) {
+  .wrap { gap: 36px; padding-block: 24px 40px; }
+  .lbl { font-size: 11px; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">good-sleep · concept model · built from real part sizes</p>
+    <h1>The band</h1>
+    <p class="lede">A rough model of the finished wristband: a 3D-printed case on a 20 mm hook-and-loop strap, sitting on a 17 cm wrist. The sizes come from the parts you're buying. The real case gets drawn in CAD in Phase 4, once you can measure the parts.</p>
+  </header>
+
+  <section class="viewer" aria-label="3D model">
+    <div class="stage" id="stage">
+      <canvas id="c" tabindex="0" aria-label="3D model of the sleep band. Drag to rotate; arrow keys also rotate."></canvas>
+      <div class="labels" id="labels" aria-hidden="true"></div>
+      <p class="nogl" id="nogl" hidden>The 3D view needs WebGL, which this browser has turned off. The cross-section below shows the same design.</p>
+    </div>
+    <div class="controls">
+      <div class="seg" role="group" aria-label="Model">
+        <button type="button" id="m-assembled" data-mode="assembled" aria-pressed="true">Assembled</button>
+        <button type="button" id="m-xray" data-mode="xray" aria-pressed="false">See inside</button>
+        <button type="button" id="m-exploded" data-mode="exploded" aria-pressed="false">Exploded</button>
+      </div>
+      <div class="seg" role="group" aria-label="View">
+        <button type="button" id="v-three" data-view="three" aria-pressed="true">3/4</button>
+        <button type="button" id="v-arm" data-view="arm" aria-pressed="false">Along the arm</button>
+        <button type="button" id="v-top" data-view="top" aria-pressed="false">Top</button>
+        <button type="button" id="v-bottom" data-view="bottom" aria-pressed="false">Underside</button>
+      </div>
+      <div class="swatches" role="group" aria-label="Case colour">Case
+        <button type="button" class="sw" id="c1" data-case="0xe4dfd3" style="background:#e4dfd3" aria-label="Bone" aria-pressed="true"></button>
+        <button type="button" class="sw" id="c2" data-case="0x3c4146" style="background:#3c4146" aria-label="Graphite" aria-pressed="false"></button>
+        <button type="button" class="sw" id="c3" data-case="0x8fa58f" style="background:#8fa58f" aria-label="Sage" aria-pressed="false"></button>
+      </div>
+      <div class="swatches" role="group" aria-label="Strap colour">Strap
+        <button type="button" class="sw" id="s1" data-strap="0x2d3b57" style="background:#2d3b57" aria-label="Navy" aria-pressed="true"></button>
+        <button type="button" class="sw" id="s2" data-strap="0x25282c" style="background:#25282c" aria-label="Black" aria-pressed="false"></button>
+        <button type="button" class="sw" id="s3" data-strap="0x5d6340" style="background:#5d6340" aria-label="Olive" aria-pressed="false"></button>
+      </div>
+      <div class="toggles">
+        <label for="t-labels"><input type="checkbox" id="t-labels" checked> Labels</label>
+        <label for="t-wrist"><input type="checkbox" id="t-wrist" checked> Wrist</label>
+      </div>
+    </div>
+    <p class="hint">Drag to rotate. Pinch, or Ctrl + scroll, to zoom. Arrow keys work when the model is focused.</p>
+  </section>
+
+  <dl class="facts">
+    <div><dt>Case</dt><dd>~44 × 34 × 12 mm<small>estimate from part sizes</small></dd></div>
+    <div><dt>Lug tip to lug tip</dt><dd>~59 mm<small>20 mm gap between lugs</small></dd></div>
+    <div><dt>Strap</dt><dd>20 mm quick-release<small>hook-and-loop sport loop</small></dd></div>
+    <div><dt>Weight</dt><dd>~25–35 g<small>with strap, rough estimate</small></dd></div>
+  </dl>
+
+  <section class="sec">
+    <h2>Inside, bottom to top</h2>
+    <figure>
+      <div class="scroll">
+        <svg class="xs" viewBox="0 0 900 228" role="img" aria-label="To-scale cross-section through the middle of the band: back plate with a clear window and light barrier against the skin, the MAX30101 sensor facing down through the window, the sensor board, then the battery and XIAO board side by side, under the case body. Spring bars at each end hold the strap. Total height about 12 millimetres.">
+          <!-- scale: 8 px per mm; x = 0 mm at 280 px; case bottom at y = 160 px -->
+          <path class="skin" d="M 30 205 Q 280 115 530 205 L 530 228 L 30 228 Z"/>
+          <path class="skinline" d="M 30 205 Q 280 115 530 205"/>
+          <text class="mo" x="40" y="222">skin</text>
+
+          <path class="strap" d="M 489.6 116.4 C 512 116 528 136 534 176"/>
+          <path class="strap" d="M 70.4 116.4 C 48 116 32 136 26 176"/>
+
+          <path class="case" d="M448,148.8 L492.8,140.8 Q515.2,123.2 496,104 L448,89.6 Z"/>
+          <path class="case" d="M112,148.8 L67.2,140.8 Q44.8,123.2 64,104 L112,89.6 Z"/>
+          <circle class="metal" cx="489.6" cy="123.2" r="6.8"/>
+          <circle class="metal" cx="70.4" cy="123.2" r="6.8"/>
+
+          <path class="case" d="M104,147.2 V72 Q104,64 112,64 H448 Q456,64 456,72 V147.2 H441.6 V76.8 H118.4 V147.2 Z"/>
+          <rect class="case" x="107.2" y="147.2" width="136.8" height="12.8"/>
+          <rect class="case" x="316" y="147.2" width="136.8" height="12.8"/>
+          <rect class="glass" x="244" y="150.4" width="72" height="8"/>
+          <rect class="bar" x="280" y="149.6" width="6.4" height="10.4"/>
+
+          <rect class="chip" x="257.6" y="137.6" width="44.8" height="12.4"/>
+          <rect class="pcb" x="178.4" y="124.8" width="203.2" height="12.8"/>
+          <rect class="chip" x="316" y="118.4" width="24" height="6.4"/>
+          <rect class="cap" x="217.6" y="120" width="12.8" height="4.8"/>
+
+          <rect class="batt" x="120" y="83.2" width="160" height="32" rx="3"/>
+          <rect class="pcbb" x="290" y="107.2" width="140" height="8"/>
+          <rect class="metal" x="312" y="95.2" width="96" height="12"/>
+
+          <line class="dim" x1="104" y1="40" x2="456" y2="40"/>
+          <line class="dim" x1="104" y1="34" x2="104" y2="46"/>
+          <line class="dim" x1="456" y1="34" x2="456" y2="46"/>
+          <text x="280" y="30" text-anchor="middle">44 mm</text>
+          <line class="dim" x1="545" y1="64" x2="545" y2="160"/>
+          <line class="dim" x1="539" y1="64" x2="551" y2="64"/>
+          <line class="dim" x1="539" y1="160" x2="551" y2="160"/>
+          <text x="555" y="116">12 mm</text>
+
+          <circle class="mk" cx="175" cy="153.6" r="7"/><text class="num" x="175" y="157.3" text-anchor="middle">1</text>
+          <circle class="mk" cx="280" cy="128" r="7"/><text class="num" x="280" y="131.7" text-anchor="middle">2</text>
+          <circle class="mk" cx="230" cy="131.2" r="7"/><text class="num" x="230" y="134.9" text-anchor="middle">3</text>
+          <circle class="mk" cx="200" cy="99.2" r="7"/><text class="num" x="200" y="102.9" text-anchor="middle">4</text>
+          <circle class="mk" cx="360" cy="101.2" r="7"/><text class="num" x="360" y="104.9" text-anchor="middle">5</text>
+          <circle class="mk" cx="180" cy="70.4" r="7"/><text class="num" x="180" y="74.1" text-anchor="middle">6</text>
+          <circle class="mk" cx="530" cy="150" r="7"/><text class="num" x="530" y="153.7" text-anchor="middle">7</text>
+
+          <circle class="mk" cx="608" cy="36" r="8"/><text class="num" x="608" y="39.7" text-anchor="middle">1</text>
+          <text x="624" y="40"><tspan font-weight="700">Back plate</tspan><tspan class="m"> · window + light barrier</tspan></text>
+          <circle class="mk" cx="608" cy="62" r="8"/><text class="num" x="608" y="65.7" text-anchor="middle">2</text>
+          <text x="624" y="66"><tspan font-weight="700">MAX30101 sensor</tspan><tspan class="m"> · faces your skin</tspan></text>
+          <circle class="mk" cx="608" cy="88" r="8"/><text class="num" x="608" y="91.7" text-anchor="middle">3</text>
+          <text x="624" y="92"><tspan font-weight="700">Sensor board</tspan><tspan class="m"> · 1.6 mm</tspan></text>
+          <circle class="mk" cx="608" cy="114" r="8"/><text class="num" x="608" y="117.7" text-anchor="middle">4</text>
+          <text x="624" y="118"><tspan font-weight="700">Battery 150 mAh</tspan><tspan class="m"> · 4 mm</tspan></text>
+          <circle class="mk" cx="608" cy="140" r="8"/><text class="num" x="608" y="143.7" text-anchor="middle">5</text>
+          <text x="624" y="144"><tspan font-weight="700">XIAO board</tspan><tspan class="m"> · beside the battery</tspan></text>
+          <circle class="mk" cx="608" cy="166" r="8"/><text class="num" x="608" y="169.7" text-anchor="middle">6</text>
+          <text x="624" y="170"><tspan font-weight="700">Case body</tspan><tspan class="m"> · 1.6 mm top, 1.8 mm walls</tspan></text>
+          <circle class="mk" cx="608" cy="192" r="8"/><text class="num" x="608" y="195.7" text-anchor="middle">7</text>
+          <text x="624" y="196"><tspan font-weight="700">Spring bar</tspan><tspan class="m"> · holds the 20 mm strap</tspan></text>
+          <text class="mo" x="600" y="222">total ≈ 1.6 + 3.6 + 0.4 + 4 + 0.8 + 1.6 = 12 mm</text>
+        </svg>
+      </div>
+      <figcaption>Drawn to scale through the middle of the band. The case is flat and the wrist is curved, so the centre touches and the corners float a few millimetres up; soft skin and the strap's pull close most of that gap. The USB-C port is on the side wall, outside this cut.</figcaption>
+    </figure>
+  </section>
+
+  <section class="notes">
+    <div class="note">
+      <h3>Strap</h3>
+      <ul>
+        <li>Quick-release pins: press the little lever and the pin retracts, then let go and it clicks into the lug holes. Any 20 mm watch strap fits.</li>
+        <li>Hook-and-loop threads through its ring and sticks to itself, so you set the tension by the millimetre: snug enough that the window stays on skin, loose enough to sleep.</li>
+        <li>Measure your wrist with a paper strip and check the strap's wrist range. The upper arm needs a long armband instead.</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h3>Case</h3>
+      <ul>
+        <li>Two printed parts: the body (walls, lugs, USB-C slot, switch opening) and the back plate (window and light barrier), joined by small screws or a snap fit. That's a Phase 4 decision.</li>
+        <li>PETG or resin from a print service, with every edge that touches skin rounded.</li>
+        <li>The window sits flush or slightly proud, so the sensor presses gently into the skin.</li>
+      </ul>
+    </div>
+    <div class="note">
+      <h3>Not shown</h3>
+      <ul>
+        <li>The wires between the boards.</li>
+        <li>The optional 16 MB flash board. A breakout adds roughly 3 mm of height; soldering the bare chip (5 × 6 mm) avoids that.</li>
+        <li>The final shape. This is a box built around the parts. A custom PCB in Phase 6 is how it gets thinner and smaller.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <a href="https://claude.ai/artifact/SA2F6snirbWCmEdQUTUNmn" target="_blank" rel="noopener">Good Sleep hardware</a>
+    <a href="https://claude.ai/artifact/V8tGNCdFt2NYx6RFtiKZuu" target="_blank" rel="noopener">Good Sleep build plan</a>
+    <span>Concept only: dimensions are estimates until the parts are measured.</span>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function () {
+  var stage = document.getElementById('stage');
+  var canvas = document.getElementById('c');
+  var labelsEl = document.getElementById('labels');
+  function noGL() { document.getElementById('nogl').hidden = false; canvas.hidden = true; }
+  if (!window.THREE) { noGL(); return; }
+  var renderer;
+  try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true, preserveDrawingBuffer: true }); }
+  catch (e) { noGL(); return; }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setClearColor(0x000000, 0);
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var EASE = reduce ? 1 : 0.12;
+  function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+  var scene = new THREE.Scene();
+  var camera = new THREE.PerspectiveCamera(28, 1, 1, 2000);
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x7d8279, 0.8));
+  var key = new THREE.DirectionalLight(0xffffff, 0.72); key.position.set(70, 140, 100); scene.add(key);
+  var rim = new THREE.DirectionalLight(0xffffff, 0.4); rim.position.set(-100, 50, -90); scene.add(rim);
+  var under = new THREE.DirectionalLight(0xffffff, 0.55); under.position.set(20, -120, 60); scene.add(under);
+
+  function mat(c, o) { var p = { color: c, roughness: 0.7, metalness: 0 }; if (o) for (var k in o) p[k] = o[k]; return new THREE.MeshStandardMaterial(p); }
+  function box(w, h, d, m, x, y, z) { var me = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), m); me.position.set(x, y, z); return me; }
+  function rr(w, d, r, Cls) {
+    var P = new (Cls || THREE.Shape)(), x = -w / 2, y = -d / 2;
+    P.moveTo(x + r, y); P.lineTo(x + w - r, y); P.quadraticCurveTo(x + w, y, x + w, y + r);
+    P.lineTo(x + w, y + d - r); P.quadraticCurveTo(x + w, y + d, x + w - r, y + d);
+    P.lineTo(x + r, y + d); P.quadraticCurveTo(x, y + d, x, y + d - r);
+    P.lineTo(x, y + r); P.quadraticCurveTo(x, y, x + r, y); return P;
+  }
+  function extrudeUp(shape, depth, bevel) {
+    var g = new THREE.ExtrudeGeometry(shape, { depth: depth, bevelEnabled: bevel > 0, bevelThickness: bevel, bevelSize: bevel, bevelSegments: 4, curveSegments: 20 });
+    g.rotateX(-Math.PI / 2); return g;
+  }
+  function weaveTex() {
+    var cv = document.createElement('canvas'); cv.width = 64; cv.height = 64; var g = cv.getContext('2d');
+    g.fillStyle = '#ffffff'; g.fillRect(0, 0, 64, 64);
+    for (var x = 0; x < 64; x += 4) { g.fillStyle = (x / 4) % 2 ? '#d6d6d6' : '#ececec'; g.fillRect(x, 0, 2, 64); }
+    for (var y = 0; y < 64; y += 16) { g.fillStyle = 'rgba(0,0,0,0.05)'; g.fillRect(0, y, 64, 1); }
+    var t = new THREE.CanvasTexture(cv); t.wrapS = t.wrapT = THREE.RepeatWrapping; return t;
+  }
+  function battTex() {
+    var cv = document.createElement('canvas'); cv.width = 256; cv.height = 344; var g = cv.getContext('2d');
+    g.fillStyle = '#c9cdd2'; g.fillRect(0, 0, 256, 344);
+    g.fillStyle = '#e9c46a'; g.fillRect(0, 0, 256, 40);
+    g.fillStyle = '#2b2f33'; g.textAlign = 'center'; g.font = 'bold 40px sans-serif';
+    g.fillText('3.7 V', 128, 160); g.fillText('150 mAh', 128, 215);
+    g.font = '24px sans-serif'; g.fillText('LiPo · protected', 128, 268);
+    return new THREE.CanvasTexture(cv);
+  }
+
+  var W = 44, D = 34, H = 12, WRIST_TOP = 22;
+  var caseMat = mat(0xe4dfd3, { roughness: 0.6 });
+  var strapMat = mat(0x2d3b57, { roughness: 0.95, map: weaveTex(), side: THREE.DoubleSide });
+  var metal = mat(0xb9bec4, { metalness: 0.65, roughness: 0.32 });
+  var darkM = mat(0x16181b, { roughness: 0.55 });
+  var chipM = mat(0x2a2d31, { roughness: 0.4 });
+  var pcbG = mat(0x1f5a45, { roughness: 0.55 });
+  var pcbB = mat(0x141619, { roughness: 0.5 });
+  var glass = new THREE.MeshStandardMaterial({ color: 0xd8ecf2, transparent: true, opacity: 0.35, roughness: 0.05 });
+  var skin = new THREE.MeshStandardMaterial({ color: 0xc89f7f, transparent: true, opacity: 0.2, roughness: 0.9, depthWrite: false, side: THREE.DoubleSide });
+  var ledM = new THREE.MeshStandardMaterial({ color: 0xffffff, emissive: 0x9fe3c0, emissiveIntensity: 0.5, transparent: true, opacity: 0.9 });
+
+  var band = new THREE.Group(); band.position.y = WRIST_TOP; scene.add(band);
+  var plateG = new THREE.Group(), sensorG = new THREE.Group(), innerG = new THREE.Group(), bodyG = new THREE.Group();
+  band.add(plateG); band.add(sensorG); band.add(innerG); band.add(bodyG);
+
+  // back plate with window and light barrier
+  var ps = rr(W - 0.8, D - 0.8, 6.6); ps.holes.push(rr(9, 6, 1.5, THREE.Path));
+  plateG.add(new THREE.Mesh(extrudeUp(ps, 1.6, 0), caseMat));
+  plateG.add(box(9, 1.0, 6, glass, 0, 0.7, 0));
+  plateG.add(box(0.8, 1.3, 6, darkM, 0.4, 0.75, 0));
+
+  // MAX30101 board, sensor facing down
+  sensorG.add(box(5.6, 1.55, 3.3, chipM, 0, 2.025, 0));
+  sensorG.add(box(0.8, 0.08, 0.7, mat(0x2fd17a, { emissive: 0x0f5a2a }), -1.7, 1.22, -0.9));
+  sensorG.add(box(0.8, 0.08, 0.7, mat(0xe53935, { emissive: 0x5a1010 }), -1.7, 1.22, 0));
+  sensorG.add(box(0.8, 0.08, 0.7, mat(0x5b2c33), -1.7, 1.22, 0.9));
+  sensorG.add(box(1.8, 0.08, 1.8, mat(0x0b0c0d, { metalness: 0.2, roughness: 0.2 }), 1.4, 1.22, 0));
+  sensorG.add(box(25.4, 1.6, 25.4, pcbG, 0, 3.6, 0));
+  sensorG.add(box(3, 0.8, 2, darkM, 6, 4.8, 6));
+  sensorG.add(box(1.6, 0.6, 0.9, mat(0xb88a55), -7, 4.7, -5));
+  sensorG.add(box(4.2, 1.1, 3.2, mat(0xe9e6df), 9, 4.95, -9));
+
+  // battery and XIAO side by side
+  var bSide = mat(0xc9cdd2, { metalness: 0.3, roughness: 0.45 });
+  var bTop = new THREE.MeshStandardMaterial({ map: battTex(), roughness: 0.5, metalness: 0.2 });
+  var batt = new THREE.Mesh(new THREE.BoxGeometry(20, 4, 27), [bSide, bSide, bTop, bSide, bSide, bSide]);
+  batt.position.set(-10, 7.6, 0); innerG.add(batt);
+  innerG.add(box(17.5, 1.0, 21, pcbB, 10, 6.1, 4));
+  innerG.add(box(12, 1.5, 11, metal, 10, 7.35, 2.5));
+  innerG.add(box(9, 3.2, 7.3, metal, 10, 8.2, 12.0));
+  innerG.add(box(2.5, 0.9, 3, chipM, 15, 7.05, -5));
+  innerG.add(box(1.6, 0.6, 1.6, mat(0xf2f2f2), 4.5, 6.9, -5));
+
+  // case body, lugs, spring bars, openings
+  var body = new THREE.Mesh(extrudeUp(rr(W - 2, D - 2, 6), H - 1.6 - 2, 1), caseMat);
+  body.position.y = 2.6; bodyG.add(body);
+  function lugShape(s) {
+    var p = new THREE.Shape(); p.moveTo(21 * s, 1.4); p.lineTo(26.6 * s, 2.4);
+    p.quadraticCurveTo(29.4 * s, 4.6, 27.0 * s, 7.0); p.lineTo(21 * s, 8.8); p.lineTo(21 * s, 1.4); return p;
+  }
+  [1, -1].forEach(function (s) {
+    var g = new THREE.ExtrudeGeometry(lugShape(s), { depth: 2.4, bevelEnabled: true, bevelThickness: 0.3, bevelSize: 0.3, bevelSegments: 3, curveSegments: 12 });
+    var a = new THREE.Mesh(g, caseMat); a.position.z = 10.5; bodyG.add(a);
+    var b = new THREE.Mesh(g, caseMat); b.position.z = -12.9; bodyG.add(b);
+    var bar = new THREE.Mesh(new THREE.CylinderGeometry(0.85, 0.85, 22.4, 16), metal);
+    bar.rotation.x = Math.PI / 2; bar.position.set(26.2 * s, 4.6, 0); bodyG.add(bar);
+    bodyG.add(box(0.7, 0.9, 1.8, metal, 26.2 * s, 3.5, 6.5));
+  });
+  bodyG.add(box(10, 4.2, 0.6, darkM, 10, 8.2, D / 2 - 0.25));
+  bodyG.add(box(7, 2.6, 0.6, darkM, -10, 6.2, -D / 2 + 0.25));
+  bodyG.add(box(2.4, 1.6, 1.2, mat(0xd3d6da, { roughness: 0.5 }), -11.4, 6.2, -D / 2 - 0.3));
+  var pipe = new THREE.Mesh(new THREE.CylinderGeometry(1.1, 1.1, 0.5, 24), ledM); pipe.position.set(14, 12.05, 4); bodyG.add(pipe);
+
+  // wrist and strap
+  var wear = new THREE.Group(); scene.add(wear);
+  var A = 32, B = 22, N = 2.6;
+  function se(a, b, t) {
+    var c = Math.cos(t), s = Math.sin(t);
+    return new THREE.Vector3(a * Math.sign(c) * Math.pow(Math.abs(c), 2 / N), b * Math.sign(s) * Math.pow(Math.abs(s), 2 / N), 0);
+  }
+  var ws = new THREE.Shape();
+  for (var i = 0; i <= 96; i++) { var q = se(A, B, i / 96 * Math.PI * 2); if (i === 0) ws.moveTo(q.x, q.y); else ws.lineTo(q.x, q.y); }
+  var wg = new THREE.ExtrudeGeometry(ws, { depth: 110, bevelEnabled: false, curveSegments: 4 }); wg.translate(0, 0, -55);
+  wear.add(new THREE.Mesh(wg, skin));
+
+  function ribbon(cv, n, width, thick, offset) {
+    var pos = [], uv = [], idx = [], hw = width / 2, len = 0, prev = null;
+    for (var i = 0; i <= n; i++) {
+      var t = i / n, p = cv.getPointAt(t), tg = cv.getTangentAt(t), nx = -tg.y, ny = tg.x;
+      if (prev) len += p.distanceTo(prev); prev = p;
+      var ix = p.x + nx * offset, iy = p.y + ny * offset, ox = ix + nx * thick, oy = iy + ny * thick, u = len / 4;
+      pos.push(ix, iy, -hw, ix, iy, hw, ox, oy, -hw, ox, oy, hw);
+      uv.push(u, 0, u, 1, u, 0, u, 1);
+    }
+    for (var j = 0; j < n; j++) {
+      var a = j * 4, b = a + 4;
+      idx.push(a + 2, b + 2, a + 3, a + 3, b + 2, b + 3);
+      idx.push(a, a + 1, b, a + 1, b + 1, b);
+      idx.push(a, b, a + 2, a + 2, b, b + 2);
+      idx.push(a + 1, a + 3, b + 1, a + 3, b + 3, b + 1);
+    }
+    var e = n * 4; idx.push(0, 1, 3, 0, 3, 2, e, e + 2, e + 3, e, e + 3, e + 1);
+    var g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+    g.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+    g.setIndex(idx); g.computeVertexNormals(); return g;
+  }
+  var SA = A + 1.2, SB = B + 1.2, D2R = Math.PI / 180;
+  var pts = [new THREE.Vector3(25.4, 25.8, 0), new THREE.Vector3(28.2, 24.2, 0), new THREE.Vector3(29.2, 20.4, 0)];
+  [35, 15, -5, -25, -45, -65, -90, -115, -135, -155, -175, -195, -215].forEach(function (d) { pts.push(se(SA, SB, d * D2R)); });
+  pts.push(new THREE.Vector3(-29.2, 20.4, 0), new THREE.Vector3(-28.2, 24.2, 0), new THREE.Vector3(-25.4, 25.8, 0));
+  wear.add(new THREE.Mesh(ribbon(new THREE.CatmullRomCurve3(pts, false, 'centripetal'), 240, 20, 2.0, 0), strapMat));
+  var ov = []; for (var d = -40; d >= -112; d -= 6) ov.push(se(SA, SB, d * D2R));
+  wear.add(new THREE.Mesh(ribbon(new THREE.CatmullRomCurve3(ov), 48, 19.4, 1.5, 2.05), strapMat));
+  var t0 = -36 * D2R, P = se(SA, SB, t0), T = se(SA, SB, t0 - 0.01).sub(P).normalize();
+  var Nn = new THREE.Vector3(-T.y, T.x, 0), Z = new THREE.Vector3(0, 0, 1);
+  var ringM = mat(0x3a3e44, { metalness: 0.5, roughness: 0.4 });
+  var ring = new THREE.Group();
+  ring.add(box(1.2, 1.0, 24.4, ringM, 0, -0.7, 0)); ring.add(box(1.2, 1.0, 24.4, ringM, 0, 4.3, 0));
+  ring.add(box(1.2, 6.0, 1.0, ringM, 0, 1.8, 11.7)); ring.add(box(1.2, 6.0, 1.0, ringM, 0, 1.8, -11.7));
+  var m4 = new THREE.Matrix4().makeBasis(T, Nn, Z); m4.setPosition(P);
+  ring.matrixAutoUpdate = false; ring.matrix.copy(m4); wear.add(ring);
+
+  // labels
+  // n = outward direction (label hides when it faces away from the camera); side = preferred label side
+  var LABELS = [
+    { t: 'USB-C charging port', o: bodyG, p: [10, 8.2, 17.4], n: [0, 0, 1], side: 'l', m: ['assembled', 'xray'] },
+    { t: 'Power switch', o: bodyG, p: [-11.4, 6.2, -17.8], n: [0, 0, -1], side: 'l', m: ['assembled', 'xray'] },
+    { t: '20 mm lugs + quick-release pin', o: bodyG, p: [28.6, 5, 11.7], n: [1, 0, 0], side: 'r', m: ['assembled', 'xray'] },
+    { t: 'Status light', o: bodyG, p: [14, 12.3, 4], n: [0, 1, 0], side: 'r', m: ['assembled'] },
+    { t: 'Hook-and-loop strap, 20 mm', o: ring, p: [0, 5, 0], n: [0, 1, 0], side: 'r', m: ['assembled', 'xray'], wear: true },
+    { t: 'Battery 150 mAh', o: innerG, p: [-10, 9.8, -4], side: 'l', m: ['xray', 'exploded'] },
+    { t: 'XIAO nRF52840 Sense', o: innerG, p: [10, 8.2, -2], side: 'r', m: ['xray', 'exploded'] },
+    { t: 'Sensor board, sensor faces down', o: sensorG, p: [-9, 4.4, 9], side: 'r', m: ['exploded'] },
+    { t: 'Back plate: window + light barrier', o: plateG, p: [-14, 0.8, 10], side: 'r', m: ['exploded'] },
+    { t: 'Case body, 3D printed', o: bodyG, p: [-12, 12.2, -8], side: 'r', m: ['exploded'] },
+    { t: 'Clear window + light barrier', o: plateG, p: [4.5, 0, 2.6], n: [0, -1, 0], side: 'r', m: ['under'] },
+    { t: 'LEDs: green, red, IR', o: sensorG, p: [-1.7, 1.2, 0.9], n: [0, -1, 0], side: 'l', m: ['under'] }
+  ];
+  LABELS.forEach(function (L) {
+    var el = document.createElement('div'); el.className = 'lbl'; el.hidden = true;
+    el.innerHTML = '<i></i><span></span>'; el.lastChild.textContent = L.t; labelsEl.appendChild(el); L.el = el;
+  });
+
+  // state
+  var mode = 'assembled', view = 'three', labelsOn = true, wearOn = true, ex = 0;
+  var target = new THREE.Vector3(0, 14, 0);
+  var sph = { th: 0.75, ph: 1.08, r: 150 }, goal = null;
+  var PRESETS = {
+    three: { th: 0.75, ph: 1.08, r: 150, ty: 14 },
+    arm: { th: 0.0001, ph: 1.42, r: 165, ty: 10 },
+    top: { th: 0.0001, ph: 0.06, r: 150, ty: 28 },
+    bottom: { th: 0.0001, ph: 2.8, r: 105, ty: 26 },
+    exploded: { th: 0.75, ph: 1.18, r: 190, ty: 36 }
+  };
+  function wrapPi(a) { while (a > Math.PI) a -= 2 * Math.PI; while (a < -Math.PI) a += 2 * Math.PI; return a; }
+  function setGoal(p) { goal = { th: sph.th + wrapPi(p.th - sph.th), ph: p.ph, r: p.r, ty: p.ty }; }
+
+  function press(groupSel, attr, val) {
+    document.querySelectorAll(groupSel).forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute(attr) === val)); });
+  }
+  function setXray(on) {
+    caseMat.transparent = on; caseMat.opacity = on ? 0.2 : 1; caseMat.depthWrite = !on; caseMat.needsUpdate = true;
+  }
+  document.querySelectorAll('[data-mode]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var next = b.getAttribute('data-mode'); var was = mode; mode = next;
+      press('[data-mode]', 'data-mode', mode); setXray(mode === 'xray');
+      if (mode === 'exploded') setGoal(PRESETS.exploded);
+      else if (was === 'exploded') setGoal(PRESETS[view]);
+    });
+  });
+  document.querySelectorAll('[data-view]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      view = b.getAttribute('data-view'); press('[data-view]', 'data-view', view);
+      wearOn = view !== 'bottom'; document.getElementById('t-wrist').checked = wearOn;
+      setGoal(mode === 'exploded' && view === 'three' ? PRESETS.exploded : PRESETS[view]);
+    });
+  });
+  document.querySelectorAll('[data-case]').forEach(function (b) {
+    b.addEventListener('click', function () { caseMat.color.setHex(parseInt(b.getAttribute('data-case'), 16)); press('[data-case]', 'data-case', b.getAttribute('data-case')); });
+  });
+  document.querySelectorAll('[data-strap]').forEach(function (b) {
+    b.addEventListener('click', function () { strapMat.color.setHex(parseInt(b.getAttribute('data-strap'), 16)); press('[data-strap]', 'data-strap', b.getAttribute('data-strap')); });
+  });
+  document.getElementById('t-labels').addEventListener('change', function (e) { labelsOn = e.target.checked; });
+  document.getElementById('t-wrist').addEventListener('change', function (e) { wearOn = e.target.checked; });
+
+  // orbit controls
+  var pointers = new Map(), lastPinch = 0;
+  canvas.addEventListener('pointerdown', function (e) { canvas.setPointerCapture(e.pointerId); pointers.set(e.pointerId, { x: e.clientX, y: e.clientY }); goal = null; });
+  canvas.addEventListener('pointermove', function (e) {
+    if (!pointers.has(e.pointerId)) return;
+    var pr = pointers.get(e.pointerId), dx = e.clientX - pr.x, dy = e.clientY - pr.y;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size === 1) { sph.th -= dx * 0.008; sph.ph = clamp(sph.ph - dy * 0.008, 0.05, 3.09); }
+    else if (pointers.size === 2) {
+      var v2 = Array.from(pointers.values()), dist = Math.hypot(v2[0].x - v2[1].x, v2[0].y - v2[1].y);
+      if (lastPinch) sph.r = clamp(sph.r * lastPinch / dist, 70, 260); lastPinch = dist;
+    }
+  });
+  function up(e) { pointers.delete(e.pointerId); if (pointers.size < 2) lastPinch = 0; }
+  canvas.addEventListener('pointerup', up); canvas.addEventListener('pointercancel', up);
+  canvas.addEventListener('wheel', function (e) {
+    if (!e.ctrlKey && !e.metaKey) return;
+    e.preventDefault(); goal = null; sph.r = clamp(sph.r * (1 + e.deltaY * 0.004), 70, 260);
+  }, { passive: false });
+  canvas.addEventListener('keydown', function (e) {
+    var k = e.key;
+    if (k === 'ArrowLeft') sph.th += 0.12; else if (k === 'ArrowRight') sph.th -= 0.12;
+    else if (k === 'ArrowUp') sph.ph = clamp(sph.ph - 0.12, 0.05, 3.09); else if (k === 'ArrowDown') sph.ph = clamp(sph.ph + 0.12, 0.05, 3.09);
+    else if (k === '+' || k === '=') sph.r = clamp(sph.r * 0.9, 70, 260); else if (k === '-') sph.r = clamp(sph.r * 1.1, 70, 260);
+    else return;
+    goal = null; e.preventDefault();
+  });
+
+  function resize() {
+    var w = stage.clientWidth, h = stage.clientHeight; if (!w || !h) return;
+    renderer.setSize(w, h, false); camera.aspect = w / h; camera.updateProjectionMatrix();
+  }
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(stage); else window.addEventListener('resize', resize);
+  resize();
+
+  var vv = new THREE.Vector3(), nn = new THREE.Vector3(), toCam = new THREE.Vector3();
+  function labelVisible(L) {
+    if (!labelsOn) return false;
+    if (L.wear && !wear.visible) return false;
+    if (view === 'bottom' && mode !== 'exploded') return L.m.indexOf('under') >= 0;
+    return L.m.indexOf(mode) >= 0;
+  }
+  function updateLabels() {
+    var w = stage.clientWidth, h = stage.clientHeight;
+    LABELS.forEach(function (L) {
+      if (!labelVisible(L)) { L.el.hidden = true; return; }
+      vv.set(L.p[0], L.p[1], L.p[2]); L.o.localToWorld(vv);
+      if (L.n) {
+        nn.set(L.n[0], L.n[1], L.n[2]).transformDirection(L.o.matrixWorld);
+        toCam.copy(camera.position).sub(vv);
+        if (nn.dot(toCam) < 0) { L.el.hidden = true; return; }
+      }
+      vv.project(camera);
+      if (vv.z > 1 || vv.x < -1.1 || vv.x > 1.1 || vv.y < -1.1 || vv.y > 1.1) { L.el.hidden = true; return; }
+      var x = (vv.x * 0.5 + 0.5) * w, y = (-vv.y * 0.5 + 0.5) * h;
+      L.el.hidden = false;
+      var lw = L.el.offsetWidth + 10, flip = L.side === 'l';
+      if (flip && x - lw < 0) flip = false; else if (!flip && x + lw > w) flip = true;
+      L.el.classList.toggle('flip', flip);
+      L.el.style.transform = 'translate(' + (flip ? 'calc(' + x.toFixed(1) + 'px - 100%)' : x.toFixed(1) + 'px') + ',' + y.toFixed(1) + 'px)';
+    });
+  }
+
+  function frame() {
+    if (goal) {
+      sph.th += (goal.th - sph.th) * EASE; sph.ph += (goal.ph - sph.ph) * EASE;
+      sph.r += (goal.r - sph.r) * EASE; target.y += (goal.ty - target.y) * EASE;
+      if (Math.abs(goal.th - sph.th) + Math.abs(goal.ph - sph.ph) + Math.abs(goal.r - sph.r) / 100 + Math.abs(goal.ty - target.y) / 100 < 0.001) goal = null;
+    }
+    ex += ((mode === 'exploded' ? 1 : 0) - ex) * EASE;
+    plateG.position.y = -6 * ex; sensorG.position.y = 5 * ex; innerG.position.y = 13 * ex; bodyG.position.y = 27 * ex;
+    wear.visible = wearOn && mode !== 'exploded' && ex < 0.05;
+    var s = Math.sin(sph.ph), rEff = sph.r * Math.max(1, 1.6 / camera.aspect);
+    camera.position.set(target.x + rEff * s * Math.sin(sph.th), target.y + rEff * Math.cos(sph.ph), target.z + rEff * s * Math.cos(sph.th));
+    camera.lookAt(target);
+    renderer.render(scene, camera);
+    updateLabels();
+    requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
