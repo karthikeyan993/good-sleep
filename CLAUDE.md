@@ -79,7 +79,7 @@ Full cost and build plan: https://claude.ai/artifact/X8z2KFZJ2zPk3WX2EABFsM
 ## Agents (from ROADMAP.md in the todoist repo)
 
 - **Learning** (C / King, CS:APP, the course): the agent explains, never solves.
-- Languages by need: Swift (an iOS app) only when it's needed, only as far as needed, AI-native.
+- Languages: firmware in C (a Rust port with Embassy is parked); Swift only drop-in, when an iOS app is needed, AI-native.
 - **This project**: I decide the data model, API shape, log format and boundaries first, in writing. The agent writes;
   I review every diff; a line I can't explain doesn't go in. The first version of each new concept is by hand (my
   MAX30101 driver, the first endpoint), then the agent does the repetitive variants.
