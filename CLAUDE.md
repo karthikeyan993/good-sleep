@@ -29,8 +29,9 @@ Full cost and build plan: https://claude.ai/artifact/X8z2KFZJ2zPk3WX2EABFsM
    from the Mac), buffer to the 16 MB SPI flash all night, low-power between samples, bulk download over a custom BLE
    GATT service in the morning. Done when 8 hours log on one charge.
 3. **Sync, server and dashboard** (decided 14 Nov). A Python sync script on the MacBook (`bleak`) downloads the night
-   over BLE each morning and uploads it unchanged to my server (**Rust** + PostgreSQL, decided 15 Nov: my server has
-   1 GB RAM and runs other work; built after the Python course). The dashboard is a web app served by the server and saved to the iPhone Home
+   over BLE each morning and uploads it unchanged to my server (decided 15 Nov: **Python** (FastAPI) + PostgreSQL
+   first, built after the Python course; then the same server rewritten in **Rust**; my server has 1 GB RAM and runs
+   other work). The dashboard is a web app served by the server and saved to the iPhone Home
    Screen: charts of heart rate, HRV and movement. A native iPhone app (Swift) is parked; Safari has no Web Bluetooth.
 4. **Case and wear tests.** 3D-printed two-part case with a clear window over the sensor, an opaque light barrier
    between LEDs and photodetector, 20 mm strap lugs, USB-C reachable for charging.
@@ -47,8 +48,11 @@ Full cost and build plan: https://claude.ai/artifact/X8z2KFZJ2zPk3WX2EABFsM
 ## Where this sits in my plan
 
 - Roadmap (todoist repo, ROADMAP.md): every day touches this project (15 Nov). Firmware = weekday evenings 18:00–20:00
-  (a King hour, then the board hour), Saturday 1h, Sunday 3h hands-on, with King / CS:APP / OSTEP as the concept
-  source (hybrid). The server comes after the Python course, in Rust, in the morning Backend slot.
+  IST, one step each: a read-first (a King section or a short embedded read, 20–30 min), then the build (no King
+  hour, decided 15 Nov); the plain-C pieces, written and tested on the Mac, come before the Zephyr glue. Saturday 1h,
+  Sunday 3h hands-on + 2h plain C; systems theory (CS:APP, then OSTEP) is Saturday 2h and Sunday 2h. The server is
+  built first in Python (FastAPI + PostgreSQL) in Saturday's Backend session, from Sat 12 Dec; the Rust rewrite
+  (Axum + PostgreSQL) comes after Zero To Production, from March, in the weekday morning Backend slot.
 - Tasks: the **Good Sleep** board in Todoist. Build plan: https://claude.ai/artifact/V8tGNCdFt2NYx6RFtiKZuu ·
   3D concept: https://claude.ai/artifact/HyKwjZAfPRNs3kaQSsKwMd
 
@@ -57,7 +61,7 @@ Full cost and build plan: https://claude.ai/artifact/X8z2KFZJ2zPk3WX2EABFsM
 - `firmware/` — Zephyr application (`west`) for the XIAO nRF52840 Sense (`xiao_ble/nrf52840/sense`)
 - `sync/` — Mac sync script (Python, `bleak`)
 - `analysis/` — Python package: loaders, epoching, PPG beat detection, features, models, reports; tests in `analysis/tests/`
-- `server/` — Rust backend + web dashboard
+- `server/` — backend + web dashboard: Python (FastAPI) first, the Rust rewrite (Axum) from March
 - `hardware/` — case CAD, wiring diagram, later KiCad files
 - `docs/` — decisions, data format spec, notes
 - `data/` — local recordings, **git-ignored**; commit only small synthetic or anonymised samples under `analysis/tests/fixtures/`
