@@ -48,7 +48,7 @@ Full cost and build plan: https://claude.ai/artifact/X8z2KFZJ2zPk3WX2EABFsM
 
 - Roadmap (todoist repo, ROADMAP.md): every day touches this project (15 Nov). Firmware = weekday evenings 18:00–20:00
   (a King hour, then the board hour), Saturday 1h, Sunday 3h hands-on, with King / CS:APP / OSTEP as the concept
-  source (hybrid). The server comes after the Python course, in Rust, in the morning Main slot.
+  source (hybrid). The server comes after the Python course, in Rust, in the morning Backend slot.
 - Tasks: the **Good Sleep** board in Todoist. Build plan: https://claude.ai/artifact/V8tGNCdFt2NYx6RFtiKZuu ·
   3D concept: https://claude.ai/artifact/HyKwjZAfPRNs3kaQSsKwMd
 
