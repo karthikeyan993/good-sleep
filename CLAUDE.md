@@ -68,7 +68,9 @@ Full cost and build plan: https://claude.ai/artifact/X8z2KFZJ2zPk3WX2EABFsM
   (`west build`) and test analysis code against recorded or synthetic fixture files.
 - Define the on-device log format and BLE transfer protocol in `docs/` before writing both ends, and version it.
 - My health data is private: never commit real recordings, tokens or keys. Keep secrets in environment variables.
-- Prefer small, reviewable steps: one feature per branch/PR, with tests for the analysis code.
+- Prefer small, reviewable steps, with tests for the analysis code.
+- Always work on `main`: no feature branches, no PRs. A cloud session that starts on a `claude/...` branch switches to
+  `main` and pushes `main`; any other branch gets rebased onto `main` and deleted. This line is my standing permission.
 - Not a medical device: label sleep stages and SpO2 as estimates in any UI text.
 - Ask me before changing the phone platform, app framework or firmware RTOS, adding a paid service,
   or changing the data format.
